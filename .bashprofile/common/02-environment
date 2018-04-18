@@ -1,0 +1,48 @@
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# enable 256 colour if available
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+    export TERM=gnome-256color
+elif infocmp xterm-256color >/dev/null 2>&1; then
+    export TERM=xterm-256color
+fi
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# bash completion sources
+source /etc/bash_completion.d/git-prompt
+source /usr/local/bin/z
+
+# preferences
+export EDITOR=nano
+export TMPDIR=/tmp
+
+# development environment paths
+export WORKSPACE=~/Applications/hmrc-development-environment/hmrc/
+export WDE=~/Applications/hmrc-development-environment/hmrc/
+export PDE=~/Applications/personal-development-environment/src/
+
+# jenkins credentials
+export jenkins_user="jack.green"
+export jenkins_key="7a5c39c6544a90126f11a8b2e74ee248"
+
+# java variables
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+export JAVA_OPTS='-XX:MaxMetaspaceSize=512m -Xmx1524M'
+
+# go path
+export GOPATH=/home/jgreen/Applications/personal-development-environment:/home/jgreen/go
+
+# smashing credentials
+export JIRA_USERNAME="jack.green"
+export JIRA_PASSWORD="C8gm5zRqm^g83l"
+export GITHUB_ACCESS_TOKEN="3830beae9f0396cc52fb068ca1658705233dbfc8"
+
+# nvm sources
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+

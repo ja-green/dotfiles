@@ -1,0 +1,174 @@
+unset PS1
+
+# export to components?
+std_bell() 		{ echo "\a"; } 		# an ASCII bell character (07)
+std_date() 		{ echo "\d"; } 		# the date in “Weekday Month Date” format (e.g., “Tue May 26”)
+std_fdate() 		{ echo "\D{${1}}"; }	# the format is passed to strftime(3) and the result is inserted into the prompt string; an empty format results in a locale-specific time representation. The braces are required
+std_esc() 		{ echo "\e"; } 		# an ASCII escape character (033)
+std_host() 		{ echo "\h"; } 		# the hostname up to the first ‘.’
+std_lhost() 		{ echo "\H"; } 		# the hostname
+std_jobs() 		{ echo "\j"; } 		# the number of jobs currently managed by the shell
+std_dev() 		{ echo "\l"; } 		# the basename of the shellâ€™s terminal device name
+std_linefeed() 		{ echo "\n"; } 		# newline
+std_carriagereturn() 	{ echo "\r"; } 		# carriage return
+std_space() 		{ echo " ";  } 		# space
+std_shell() 		{ echo "\s"; } 		# the name of the shell, the basename of $0 (the portion following the final slash)
+std_ltime12() 		{ echo "\T"; } 		# the current time in 12-hour HH:MM:SS format
+std_ltime24() 		{ echo "\t"; }		# the current time in 24-hour HH:MM:SS format
+std_time12() 		{ echo "\@"; } 		# the current time in 12-hour am/pm format
+std_time24() 		{ echo "$(date +%H:%M)"; } 		# the current time in 24-hour HH:MM format
+std_user() 		{ echo "\u"; } 		# the username of the current user
+std_version() 		{ echo "\v"; } 		# the version of bash (e.g., 2.00)
+std_lversion() 		{ echo "\V"; } 		# the release of bash, version + patch level (e.g., 2.00.0)
+std_workdir() 		{ echo "$(pwd)"; } 		# the current working directory, with $HOME abbreviated with a tilde
+std_baseworkdir() 	{ echo "\W"; } 		# the basename of the current working directory, with $HOME abbreviated with a tilde
+std_hist() 		{ echo "!";  } 		# the history number of this command
+std_cnum() 		{ echo "\#"; } 		# the command number of this command
+std_prompt() 		{ echo "\$"; } 		# if the effective UID is 0, a #, otherwise a $
+std_octal() 		{ echo "\${1}"; } 	# the character corresponding to the octal number ${1}
+std_bslash() 		{ echo "\\"; }		# a backslash
+std_startseq() 		{ echo "\["; } 		# begin a sequence of non-printing characters, which could be used to embed a terminal control sequence into the prompt
+std_endseq() 		{ echo "\]"; } 		# end a sequence of non-printing characters
+
+git_branch() {
+    local git_status="$(git status 2> /dev/null)"
+    local on_branch="On branch ([^${IFS}]*)"
+    local on_commit="HEAD detached at ([^${IFS}]*)"
+
+    if [[ $git_status =~ $on_branch ]]; then
+        local branch=${BASH_REMATCH[1]}
+        echo "$branch"
+    elif [[ $git_status =~ $on_commit ]]; then
+        local commit=${BASH_REMATCH[1]}
+        echo ":$commit"
+    fi
+}
+
+git_status() {
+    git status --porcelain | (
+      unset dty del unt new cpd rnm
+      while read line ; do
+          case "${line//[[:space:]]/}" in
+            @('M'|'UU')*)  dty="\001${YLW}\002\u25CF\001${RST}\002" ; ;;
+            'D'*)          del="\001${RED}\002\u25CF\001${RST}\002" ; ;;
+            '??'*)         unt="\001${BLU}\002\u25CF\001${RST}\002" ; ;;
+            'A'*)          new="\001${GRN}\002\u25CF\001${RST}\002" ; ;;
+            'C'*)          cpd="\001${CYN}\002\u25CF\001${RST}\002" ; ;;
+            'R'*)          rnm="\001${MAG}\002\u25CF\001${RST}\002" ; ;;
+          esac
+      done
+      bits="${dty}${del}${unt}${new}${cpd}${rnm}"
+      [ -n "${bits}" ] && echo -e "${bits}" || echo -e "\001${GRN}\002\u2714\001${RST}\002" 
+  )
+}
+
+git_state() {
+    if   [ -d "${gitdir}/rebase-*" ]; then
+        s=" (\001${GRN}\002rebasing\001${RST}\002)"
+    elif [ -f "${gitdir}/MERGE_HEAD" ]; then
+	s=" (\001${RED}\002merging\001${RST}\002)"
+    elif [ -f "${gitdir}/CHERRY_PICK_HEAD" ]; then
+	s=" (\001${BLU}\002cherry-picking\001${RST}\002)"
+    elif [ -f "$g/REVERT_HEAD" ]; then
+	s=" (\001${CYN}\002reverting\001${RST}\002)"
+    elif [ -f "$g/BISECT_LOG" ]; then
+	s=" (\001${MAG}\002bisecting\001${RST}\002)"
+    fi
+
+    echo -e "${s}"
+}
+
+git_upstream() {
+    upstream="@{upstream}"
+    count="$(git rev-list --count --left-right "$upstream"...HEAD 2>/dev/null)"
+    case "$count" in
+        "") 		u=" \u290F  \001${CYN}\002none\001${RST}\002"      ;; # no upstream
+	"0	0") 	u=""                                               ;; # equal to upstream
+	"0	"*) 	u=" \u290F  \001${GRN}\002ahead\001${RST}\002"     ;; # ahead of upstream      (\u2193)
+	*"	0") 	u=" \u290F  \001${MAG}\002behind\001${RST}\002"    ;; # behind upstream        (\u2191)
+		 *)	u=" \u290F  \001${RED}\002diverged\001${RST}\002"  ;; # diverged from upstream (\u21C5)	
+    esac
+
+    echo -e "${u}"
+}
+
+exit_status() {
+    local EXIT="$?"
+    if [ "${EXIT}" != 0 ]; then
+        echo -e "\001${RED}\002\u2718\001${RST}\002"
+    else
+        echo -e "\001${GRN}\002\u2714\001${RST}\002"
+    fi
+}
+
+init_git_info() {
+    repo_info="$(git rev-parse --git-dir --is-inside-git-dir \
+		--is-bare-repository --is-inside-work-tree \
+		--short HEAD 2>/dev/null)"
+    rev_parse_exit_code="$?"
+
+    if [ -z "$repo_info" ]; then
+        return $exit
+    fi
+
+    if [ "$rev_parse_exit_code" = "0" ]; then
+        short_sha="${repo_info##*$'\n'}"
+        repo_info="${repo_info%$'\n'*}"
+    fi
+
+    toplevel=$(git rev-parse --show-toplevel)
+    if [[ ${toplevel} = "\n" ]]; then
+        toplevel=$(basename $(git rev-parse --show-toplevel))
+    else
+        toplevel=$(basename $(git ls-remote --get-url) .git)
+    fi
+    
+    inside_worktree="${repo_info##*$'\n'}"
+    repo_info="${repo_info%$'\n'*}"
+    bare_repo="${repo_info##*$'\n'}"
+    repo_info="${repo_info%$'\n'*}"
+    inside_gitdir="${repo_info##*$'\n'}"
+    gitdir="${repo_info%$'\n'*}"
+}
+
+dir_path() {
+    init_git_info
+
+    if [ "true" = "${inside_gitdir}" ]; then
+        if [ "true" = "${bare_repo}" ]; then
+            DIR_PATH="\001${PPL}\002${PWD/#$HOME/\~}\001${RST}\002 "
+	    GIT_INFO="[ \001${DGR}\002bare\001${RST}\002 ]"
+        else
+            DIR_PATH="\001${PPL}\002${toplevel}/.git\001${RST}\002 "
+	    GIT_INFO="[ \001${RED}\002gitdir!\001${RST}\002 ]"
+	fi
+
+    elif [ "true" = "${inside_worktree}" ]; then
+        if [[ $(basename $(pwd)) = ${toplevel} ]]; then
+            DIR_PATH="\001${PPL}\002${toplevel}\001${RST}\002 "
+        else
+            DIR_PATH="\001${PPL}\002${toplevel}/$(git rev-parse --show-prefix)\001${RST}\002 "
+        fi
+
+        GIT_INFO="[ $(git_branch)${git_state}$(git_upstream) | $(git_status) ]"
+
+    else
+        DIR_PATH="\001${PPL}\002${PWD/#$HOME/\~}\001${RST}\002"
+        # DIR_PATH=$(esc_fg_colour purple ${PWD/#$HOME/\~})
+        GIT_INFO=""
+    fi
+
+    echo -e "${DIR_PATH}${GIT_INFO}"
+}
+
+bash_prompt() {
+    EXT="$(exit_status) "
+    TME="$(std_time24) "
+    PPT="$(std_prompt) "
+    DIR="$(dir_path) "
+
+    printf "${EXT}${TME}${DIR}${PPT}"
+}
+
+PS1='$(bash_prompt)' 
+
