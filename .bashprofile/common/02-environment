@@ -1,0 +1,34 @@
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# enable 256 colour if available
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+    export TERM=gnome-256color
+elif infocmp xterm-256color >/dev/null 2>&1; then
+    export TERM=xterm-256color
+fi
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# bash completion sources
+source /etc/bash_completion.d/git-prompt
+source /usr/local/bin/z
+
+# preferences
+export EDITOR=vim
+export TMPDIR=/tmp
+
+# development environment paths
+export WORKSPACE=~/Applications/hmrc-development-environment/hmrc/
+export WDE=~/Applications/hmrc-development-environment/hmrc/
+export PDE=~/Applications/personal-development-environment/src/
+
+# java variables
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+export JAVA_OPTS='-XX:MaxMetaspaceSize=512m -Xmx1524M'
+
+# go path
+export GOPATH=/home/jgreen/Applications/personal-development-environment:/home/jgreen/go
+
