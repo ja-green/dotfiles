@@ -43,6 +43,14 @@ function hs {
     fi
 }
 
+function title {
+    echo -en "\033]0;${@}\007"
+}
+
+function sc {
+    screen -dm bash -c '"${@}"; exit;'
+}
+
 # allow .docx documents to be output on the command line
 function doccat {
     if [ -z "$1" ]; then

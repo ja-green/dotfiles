@@ -17,13 +17,18 @@ source /etc/bash_completion.d/git-prompt
 source /usr/local/bin/z
 
 # preferences
-export EDITOR=vim
+export EDITOR=vi
 export TMPDIR=/tmp
+export PAGER=less
 
-# development environment paths
+ #development environment paths
 export WORKSPACE=~/Applications/hmrc-development-environment/hmrc/
 export WDE=~/Applications/hmrc-development-environment/hmrc/
 export PDE=~/Applications/personal-development-environment/src/
+
+# jenkins credentials
+export jenkins_user="jack.green"
+export jenkins_key="7a5c39c6544a90126f11a8b2e74ee248"
 
 # java variables
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
@@ -31,4 +36,19 @@ export JAVA_OPTS='-XX:MaxMetaspaceSize=512m -Xmx1524M'
 
 # go path
 export GOPATH=/home/jgreen/Applications/personal-development-environment:/home/jgreen/go
+
+# smashing credentials
+export JIRA_USERNAME="jack.green"
+export JIRA_PASSWORD="C8gm5zRqm^g83l"
+export GITHUB_ACCESS_TOKEN="3830beae9f0396cc52fb068ca1658705233dbfc8"
+
+# nvm sources
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# z preferences
+export _Z_OWNER="jgreen"
+export _Z_NO_PROMPT_COMMAND="true"
+PROMPT_COMMAND+='$(_z --add "$(command pwd -P 2>/dev/null)" 2>/dev/null &)'
 

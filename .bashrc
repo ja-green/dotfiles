@@ -5,7 +5,7 @@
 # if not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-BASH_PROFILE=${HOME}/.bashprofile
+BASH_PROFILE=${PDE}/github.com/ja-green/dotfiles #${HOME}/.bashprofile
 
 source_files() {
   if [[ -d $1 ]]; then
@@ -15,8 +15,10 @@ source_files() {
   fi
 }
 
-source_files ${BASH_PROFILE}/common
-source_files ${BASH_PROFILE}/scripts
-source_files ${BASH_PROFILE}/private
-source_files ${BASH_PROFILE}/bin
+source_files ${BASH_PROFILE}/bash
+
+# source_files ${BASH_PROFILE}/common
+# source_files ${BASH_PROFILE}/scripts
+# source_files ${BASH_PROFILE}/private
+# source_files ${BASH_PROFILE}/bin
 

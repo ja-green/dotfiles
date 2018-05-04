@@ -1,0 +1,19 @@
+_dotfiles()
+{
+    local cur prev cmds opts
+    COMPREPLY=()
+
+    curr="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    cmds="link edit list"
+    opts="--help --version --editor --all"
+
+    if [[ ${curr} == -* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${curr}))
+        return 0
+    else
+        COMPREPLY=($(compgen -W "${cmds}" -- ${curr}))
+    fi
+}
+complete -F _dotfiles dotfiles
+

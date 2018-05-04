@@ -20,9 +20,12 @@ alias sudo='sudo '
 alias reload='source ~/.bashrc'
 
 # ls aliases
-alias ll='ls -alF'
+alias ll='ls -alF --group-directories-first'
 alias la='ls -A'
 alias l='ls -CF'
+
+# todoist aliases
+alias td='todoist --color'
 
 # cd aliases
 alias ..='cd ..'

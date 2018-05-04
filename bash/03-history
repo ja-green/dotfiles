@@ -19,5 +19,5 @@ HISTIGNORE='bg:fg:history:exit'
 HISTTIMEFORMAT='%F %T '
 
 # append to HISTFILE immediately
-PROMPT_COMMAND='history -a'
+PROMPT_COMMAND+='$(history -a)'
 
