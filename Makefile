@@ -15,6 +15,7 @@ install: ## install dotfiles handler
 	    sudo cp dotfiles_prompt /etc/bash_completion.d/;\
 	    sudo chmod +x /usr/local/bin/dotfiles;\
 	    sudo chmod +x /etc/bash_completion.d/dotfiles_prompt;\
+	    sudo updatedb; \
 	fi
 
 run: install ## run dotfiles handler

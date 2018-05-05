@@ -3,22 +3,17 @@
 # for examples
 
 # if not running interactively, don't do anything
-[ -z "$PS1" ] && return
+[ -z "${PS1}" ] && return
 
-BASH_PROFILE=${PDE}/github.com/ja-green/dotfiles #${HOME}/.bashprofile
+dotfiles_repo="$(locate dotfiles/.git | head -n 1)/.."
 
 source_files() {
-  if [[ -d $1 ]]; then
-    for file in $(find $1 -type f); do
+  if [[ -d ${1} ]]; then
+    for file in $(find ${1} -type f | sort); do
       . ${file}
     done
   fi
 }
 
-source_files ${BASH_PROFILE}/bash
-
-# source_files ${BASH_PROFILE}/common
-# source_files ${BASH_PROFILE}/scripts
-# source_files ${BASH_PROFILE}/private
-# source_files ${BASH_PROFILE}/bin
+source_files ${dotfiles_repo}/bash
 
