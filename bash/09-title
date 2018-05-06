@@ -27,7 +27,7 @@ git_repo_info() {
 }
 
 bash_title() {
-  lastcom="${_}"
+  lastcom="$(fc -ln -1 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
 
   if [ ${#lastcom} -ge 20 ]; then
     lastcom=${lastcom:0:20}...
