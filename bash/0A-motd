@@ -35,5 +35,5 @@ treefetch() {
   echo -e "${tree_stats}\n"
 }
 
-neofetch --ascii_distro Lubuntu
+neofetch --w3m --size 550px --colors 7 15 7 7 7 15 --block_range 0 15
 
