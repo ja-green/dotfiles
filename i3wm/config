@@ -205,8 +205,6 @@ bindsym $mod+r mode "resize"
 # set wallpaper
 exec ~/.fehbg &
 
-# add ssh public keys
-exec ssh-add -k ~/.ssh/id_rsa
-
 # exec --no-startup-id ~/.config/polybar/run_polybar.sh 
 exec --no-startup-id "polybar top -r"
+
