@@ -1,0 +1,2 @@
+lpass login --trust --color always greenjagsta@gmail.com &>/dev/null
+
