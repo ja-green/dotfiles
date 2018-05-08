@@ -48,7 +48,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # z preferences
-export _Z_OWNER="jgreen"
-export _Z_NO_PROMPT_COMMAND="true"
-PROMPT_COMMAND+='$(_z --add "$(command pwd -P 2>/dev/null)" 2>/dev/null &)'
+# export _Z_OWNER="jgreen"
+# export _Z_NO_PROMPT_COMMAND="true"
+# PROMPT_COMMAND+='$(_z --add "$(command pwd -P 2>/dev/null)" 2>/dev/null &)'
+
+# fasd preferences
+eval "$(fasd --init auto bash-hook bash-ccomp bash-ccomp-install)"
 

@@ -1,2 +1,2 @@
-lpass login --trust --color always greenjagsta@gmail.com &>/dev/null
+lpass ls &>/dev/null || lpass login --trust --color always greenjagsta@gmail.com &>/dev/null
 
