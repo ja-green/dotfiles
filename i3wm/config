@@ -65,7 +65,7 @@ bindsym $mod+q			kill
 bindsym $mod+Tab 		workspace back_and_forth
 
 # lock screen
-bindsym $mod+l			exec blurlock.sh
+bindsym $mod+l			exec betterlockscreen --lock blur
 
 # start screensaver
 bindsym $mod+k			workspace $ws10; exec screensaver.sh; kill
