@@ -35,7 +35,7 @@ export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 export JAVA_OPTS='-XX:MaxMetaspaceSize=512m -Xmx1524M'
 
 # go path
-export GOPATH=/home/jgreen/Applications/personal-development-environment:/home/jgreen/go
+export GOPATH=/home/jgreen/Applications/personal-development-environment:/usr/local/go/bin
 
 # smashing credentials
 export JIRA_USERNAME="$(lpass show --username Jira)"

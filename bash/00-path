@@ -24,6 +24,7 @@ add_to_path() {
 # add to PATH in this order
 push_to_path '${BASH_PROFILE}/bin'						# personal scripts and tools
 push_to_path '/usr/local/bin'							# brew and local scripts.
+push_to_path '/usr/local/go/bin'						# go binaries
 push_to_path '/usr/local/sbin'
 push_to_path '/usr/bin:/bin:/usr/sbin:/sbin'					# system path
 push_to_path '/usr/games'							# games path
