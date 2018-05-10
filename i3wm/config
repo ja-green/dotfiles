@@ -9,6 +9,10 @@ set $mod Mod4
 set $alt Mod1
 set $win Mod4
 
+# define directories
+set $screenshots	$HOME/Pictures/screenshot
+set $dotfiles		$(locate dotfiles/.git | head -1)..
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
@@ -57,16 +61,22 @@ bindsym $mod+y 			fullscreen disable; floating enable; resize set 422 240; stick
 bindsym $mod+Shift+q 		kill
 bindsym $mod+q			kill
 
+# previous workspace
+bindsym $mod+Tab 		workspace back_and_forth
+
 # lock screen
-bindsym $mod+l			exec i3lock
+bindsym $mod+l			exec blurlock.sh
+
+# start screensaver
+bindsym $mod+k			workspace $ws10; exec screensaver.sh; kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d 			exec dmenu_run
 
 # take screenshot
-bindsym Print 			exec scrot    $HOME/Pictures/screenshot/$(date +%s).png
-bindsym $mod+Print 		exec scrot -u $HOME/Pictures/screenshot/$(date +%s).png
-bindsym $mod+Shift+Print 	exec scrot -s $HOME/Pictures/screenshot/$(date +%s).png
+bindsym Print 			exec scrot    $screenshots/$(date +%s).png
+bindsym $mod+Print 		exec scrot -u $screenshots/$(date +%s).png
+bindsym $mod+Shift+Print 	exec import   $screenshots/$(date +%s).png
 
 # change focus
 bindsym $mod+Left 		focus left
