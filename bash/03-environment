@@ -23,6 +23,7 @@ export PAGER=less
 
  #development environment paths
 export WORKSPACE=~/Applications/hmrc-development-environment/hmrc/
+export DOTFILES=~/Applications/personal-development-environment/src/github.com/ja-green/dotfiles
 export WDE=~/Applications/hmrc-development-environment/hmrc/
 export PDE=~/Applications/personal-development-environment/src/
 
