@@ -11,7 +11,7 @@ set $win Mod4
 
 # define directories
 set $screenshots	$HOME/Pictures/screenshot
-set $dotfiles		$(locate dotfiles/.git | head -1)..
+set $dotfiles		$DOTFILES
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -65,7 +65,7 @@ bindsym $mod+q			kill
 bindsym $mod+Tab 		workspace back_and_forth
 
 # lock screen
-bindsym $mod+l			exec betterlockscreen --lock blur
+bindsym $mod+l			exec lock.sh
 
 # start screensaver
 bindsym $mod+k			workspace $ws10; exec screensaver.sh; kill
