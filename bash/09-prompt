@@ -61,7 +61,7 @@ git_state() {
 
 git_upstream() {
     if [[ ! "$(cat ${prompt_cache})" = "${toplevel}" ]]; then
-        git fetch -j 10 &>/dev/null &
+        git fetch --recurse-submodules -j 10 &>/dev/null &
         echo -n "${toplevel}" > "${prompt_cache}"
         echo -e " \u25CC" && return
     fi
@@ -82,7 +82,7 @@ exit_status() {
 
 init_git_info_test() {
     repo_info="$(git rev-parse --show-prefix --abbrev-ref HEAD \
-      --show-toplevel --git-dir --is-inside-git-dir            \
+      --show-toplevel --absolute-git-dir --is-inside-git-dir   \
       --is-bare-repository --is-inside-work-tree               \
       --show-superproject-working-tree 2>/dev/null)"
 
@@ -98,7 +98,9 @@ init_git_info_test() {
     repo_info="${repo_info%$'\n'*}"
     inside_gitdir="${repo_info##*$'\n'}"
     repo_info="${repo_info%$'\n'*}"
-    gitdir="${repo_info##*$'\n'}"
+    gitdir_path="${repo_info##*$'\n'}"
+    gitdir="/${gitdir_path##*/}"
+    gitdir_prefix="${PWD#$gitdir_path}"
     repo_info="${repo_info%$'\n'*}"
     
     [[ "true" = "${inside_gitdir}" ]] \
@@ -119,7 +121,7 @@ dir_path() {
 	git_info="[ \001${CYN}\002bare\001${RST}\002 ]"
     
     elif [ "true" = "${inside_gitdir}" ]; then
-        dir_path="\001${PPL}\002${toplevel}/.git\001${RST}\002 "
+        dir_path="\001${PPL}\002${toplevel}${gitdir}${gitdir_prefix}\001${RST}\002 "
 	git_info="[ \001${RED}\002gitdir\001${RST}\002 ]"
 
     elif [ "true" = "${inside_worktree}" ]; then
