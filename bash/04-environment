@@ -54,5 +54,5 @@ export NVM_DIR="$HOME/.nvm"
 # PROMPT_COMMAND+='$(_z --add "$(command pwd -P 2>/dev/null)" 2>/dev/null &)'
 
 # fasd preferences
-eval "$(fasd --init auto bash-hook bash-ccomp bash-ccomp-install)"
+eval "$(fasd --init auto)"
 
