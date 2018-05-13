@@ -51,6 +51,25 @@ function sc {
     screen -dm bash -c '"${@}"; exit;'
 }
 
+function cd {
+  [[ "${#}" = "0" ]] && builtin cd && return
+
+  case "${1}" in
+    ~|-|.|/) builtin cd "${1}" ;;
+          *) local __dir="$(fasd -d ${1} | head -1)"
+             builtin cd "${__dir:-$1}" ;;
+  esac
+
+#  if [[ "${#}" = "0" ]]; then
+#    builtin cd
+#  elif [[ "${1}" = *"~-./"* ]]: then
+#    builtin cd "${1}"
+#  else
+#    local fasd_dir="$(fasd -d ${1} | head -1)"
+#    builtin cd "${fasd_dir:-$1}"
+#  fi
+}
+
 # allow .docx documents to be output on the command line
 function doccat {
     if [ -z "$1" ]; then
