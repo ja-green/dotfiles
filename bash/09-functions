@@ -17,7 +17,7 @@ function cat {
 
 # allow the use of vim with unknown file locations
 function vi {
-    [ -f "${1}" ] && command vi "{1}" || command vi "$(fasd -f ${1})"
+    [ -f "${1}" ] && command vi "${1}" || command vi "$(fasd -f ${1})"
 }
 
 # allow .md files to be read cleanly on the command line
@@ -53,6 +53,7 @@ function sc {
 
 function cd {
   [[ "${#}" = "0" ]] && builtin cd && return
+  [[ -d "${1}"    ]] && builtin cd "${1}" && return
 
   case "${1}" in
     ~|-|.|/) builtin cd "${1}" ;;
