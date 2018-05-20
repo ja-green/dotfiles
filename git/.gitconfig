@@ -1,45 +1,47 @@
+[init]
+  	templatedir 	= ~/Applications/personal-development-environment/src/github.com/ja-green/dotfiles/git/template.d
 [user]
-	email 	= jack.green@digital.hmrc.gov.uk
-	name 	= ja-green
+	email 		= jack.green@digital.hmrc.gov.uk
+	name 		= ja-green
 [web]
-	browser = google-chrome
+	browser 	= google-chrome
 [color]
-	ui 	= auto
+	ui 		= auto
 [alias]
 	# basic commands
-	co 	= checkout
-	br 	= branch
-	cm 	= commit
-	st 	= status -s
-	df	= diff
-	cl	= clone
+	co 		= checkout
+	br 		= branch
+	cm 		= commit
+	st 		= status -s
+	df		= diff
+	cl		= clone
 
 	# logs
-	ls	= log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-	ll 	= log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	ls		= log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	ll 		= log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
 
 	# merging
-	um 	= reset --merge ORIG_HEAD
-	mb 	= merge --no-ff --no-commit
-	mbo 	= !sh -c \"git merge --no-ff origin/${@} --no-commit\"
-	mlb 	= !sh -c \"git merge --no-ff origin/$(git rev-parse --abbrev-ref @{-1}) --no-commit\"
+	um 		= reset --merge ORIG_HEAD
+	mb 		= merge --no-ff --no-commit
+	mbo 		= !sh -c \"git merge --no-ff origin/${@} --no-commit\"
+	mlb 		= !sh -c \"git merge --no-ff origin/$(git rev-parse --abbrev-ref @{-1}) --no-commit\"
 	
 	# diff
-	diffcb 	= !sh -c \"git diff master..$(git curr)\"
-	difflb 	= !sh -c \"git diff master..$(git rev-parse --abbrev-ref @{-1})\"
+	diffcb 		= !sh -c \"git diff master..$(git curr)\"
+	difflb 		= !sh -c \"git diff master..$(git rev-parse --abbrev-ref @{-1})\"
 
 	# rebasing
-	squash	= !sh -c \"git reset --soft HEAD~${1} && git commit -m ${2:-"$(git log --oneline --format=%B -n 1 HEAD | head -n 1)"}\"
+	squash		= !sh -c \"git reset --soft HEAD~${1} && git commit -m ${2:-"$(git log --oneline --format=%B -n 1 HEAD | head -n 1)"}\"
 
 	# pull request
-	pr	= !sh -c \"hub pull-request ${1:-"$(git rev-parse --abbrev-ref HEAD): $(git log --oneline --format=%B -n 1 HEAD | head -n 1)"}\"
+	pr		= !sh -c \"hub pull-request ${1:-"$(git rev-parse --abbrev-ref HEAD): $(git log --oneline --format=%B -n 1 HEAD | head -n 1)"}\"
 
 	# utilities
-	last 	= rev-parse --abbrev-ref @{-1}
-	curr 	= rev-parse --abbrev-ref HEAD
-	home    = !sh -c \"git rev-parse --show-toplevel\"
-	repo	= !sh -c \"basename $(git rev-parse --show-toplevel)\"
-	find	= !sh -c \"git ls-files | grep -i ${@}\"
-	ugrep   = !sh -c \"pwd && grep -nr "${@}*" --exclude-dir={.git,target} .\"
-	aliases = !sh -c \"git config -l | grep alias | cut -c 7-\"
-	undo 	= !sh -c \"git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}\"
+	last 		= rev-parse --abbrev-ref @{-1}
+	curr 		= rev-parse --abbrev-ref HEAD
+	home    	= !sh -c \"git rev-parse --show-toplevel\"
+	repo		= !sh -c \"basename $(git rev-parse --show-toplevel)\"
+	find		= !sh -c \"git ls-files | grep -i ${@}\"
+	ugrep   	= !sh -c \"pwd && grep -nr "${@}*" --exclude-dir={.git,target} .\"
+	aliases 	= !sh -c \"git config -l | grep alias | cut -c 7-\"
+	undo 		= !sh -c \"git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}\"

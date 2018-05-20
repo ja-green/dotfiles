@@ -1,0 +1,44 @@
+#!/bin/bash
+
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+errood
+errtnp
+errinp
+errvnp
+errsnp
+
+die() {
+  printf "${RED}"
+  printf "${1}" "${2}" >&2
+  printf "${RST}"
+
+  printf "info: use '--no-verify' to disable this check"
+
+  exit 1
+}
+
+restore_state() {
+  git checkout ${branch} &>/dev/null
+  git stash apply        &>/dev/null
+}
+
+validate_sbt() {
+  sbt test 	  | grep error && die "" ""
+  sbt it:test	  | grep error && die "" ""
+  sbt validate    | grep error && die "" ""
+  sbt scalastyle  | grep error && die "" ""
+}
+
+validate_up_to_date() {
+  git checkout master  
+}
+
+validate_not_master() {
+  [ "${branch}" = "master" ] \
+    && die "" ""
+}
+
+trap restore_state EXIT
+
+
