@@ -46,32 +46,36 @@ git_status() {
 }
 
 git_state() {
-    if   [ -d "${gitdir}/rebase-merge" ] || [ -d "${gitdir}/rebase-apply" ]; then
+    if   [ -d "${PWD}${gitdir}/rebase-merge" ] || [ -d "${PWD}${gitdir}/rebase-apply" ]; then
         echo -e " (\001${GRN}\002rebasing\001${RST}\002)"
-    elif [ -f "${gitdir}/MERGE_HEAD" ]; then
+    elif [ -f "${PWD}${gitdir}/MERGE_HEAD" ]; then
 	echo -e " (\001${RED}\002merging\001${RST}\002)"
-    elif [ -f "${gitdir}/CHERRY_PICK_HEAD" ]; then
+    elif [ -f "${PWD}${gitdir}/CHERRY_PICK_HEAD" ]; then
 	echo -e " (\001${BLU}\002cherry-picking\001${RST}\002)"
-    elif [ -f "$g/REVERT_HEAD" ]; then
+    elif [ -f "${PWD}${gitdir}/REVERT_HEAD" ]; then
 	echo -e " (\001${CYN}\002reverting\001${RST}\002)"
-    elif [ -f "$g/BISECT_LOG" ]; then
+    elif [ -f "${PWD}${gitdir}/BISECT_LOG" ]; then
 	echo -e " (\001${MAG}\002bisecting\001${RST}\002)" 
     fi
 }
 
 git_upstream() {
     if [[ ! "$(cat ${prompt_cache})" = "${toplevel}" ]]; then
-        git fetch --recurse-submodules -j 10 &>/dev/null &
-        echo -n "${toplevel}" > "${prompt_cache}"
-        echo -e " \u25CC" && return
+      git fetch --recurse-submodules -j 10 &>/dev/null &
+      echo -n "${toplevel}" > "${prompt_cache}"
+      echo -e " \u25CC" && return
+    fi
+
+    if ps -aux | grep -P 'git fetch' | grep -v 'grep' &>/dev/null; then
+      echo -e " \u25CC" && return
     fi
 
     count="$(git rev-list --count --left-right @{upstream}...HEAD 2>/dev/null)"
     case "${count}" in
-        "") 		echo -e " \u290F  \001${CYN}\002none\001${RST}\002"                 && return  ;; # no upstream
-	"0	0") 	echo -e ""                                                          && return  ;; # equal to upstream
-	"0	"*) 	echo -e " \u290F  \001${GRN}\002ahead ${count#0	}\001${RST}\002"    && return  ;; # ahead of upstream      (\u2193)
-	*"	0") 	echo -e " \u290F  \001${MAG}\002behind ${count%	0}\001${RST}\002"   && return  ;; # behind upstream        (\u2191)
+      "") 		echo -e " \u290F  \001${CYN}\002none\001${RST}\002"                 && return  ;; # no upstream
+      "0	0") 	echo -e ""                                                          && return  ;; # equal to upstream
+      "0	"*) 	echo -e " \u290F  \001${GRN}\002ahead ${count#0	}\001${RST}\002"    && return  ;; # ahead of upstream      (\u2193)
+      *"	0") 	echo -e " \u290F  \001${MAG}\002behind ${count%	0}\001${RST}\002"   && return  ;; # behind upstream        (\u2191)
 		 *)	echo -e " \u290F  \001${RED}\002diverged\001${RST}\002"             && return  ;; # diverged from upstream (\u21C5)	
     esac
 }
