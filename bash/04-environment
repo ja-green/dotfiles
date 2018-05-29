@@ -14,14 +14,16 @@ fi
 
 # bash completion sources
 source /etc/bash_completion.d/git-prompt
-source /usr/local/bin/z
 
 # preferences
 export EDITOR=vi
 export TMPDIR=/tmp
 export PAGER=less
 
- #development environment paths
+# lpass preferences
+export LPASS_AGENT_TIMEOUT=28800
+
+# development environment paths
 export WORKSPACE=~/Applications/hmrc-development-environment/hmrc/
 export DOTFILES=~/Applications/personal-development-environment/src/github.com/ja-green/dotfiles
 export WDE=~/Applications/hmrc-development-environment/hmrc/
@@ -47,11 +49,6 @@ export GITHUB_ACCESS_TOKEN="$(lpass show --notes github.com)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-# z preferences
-# export _Z_OWNER="jgreen"
-# export _Z_NO_PROMPT_COMMAND="true"
-# PROMPT_COMMAND+='$(_z --add "$(command pwd -P 2>/dev/null)" 2>/dev/null &)'
 
 # fasd preferences
 eval "$(fasd --init auto)"
