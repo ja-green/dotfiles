@@ -6,3 +6,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# fzf completion and keybindings
+source "${HOME}/.fzf/completion.bash" 2> /dev/null
+source "/tmp/fzf/shell/key-bindings.bash"
+
