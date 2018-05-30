@@ -1,0 +1,17 @@
+#!/bin/bash
+
+flags=""
+shstr=""
+
+while test $# -gt 0; do
+  case "${1}" in
+    -*) flags="${flags} ${1}"; shift ;;
+     *) shstr="${shstr} ${1}"; shift ;;
+  esac
+done
+
+if ! git checkout ${flags} ${shstr} 2>/dev/null; then
+  branch="$(git branch -lavv | fzf -0 -1 -q ${shstr:-''} | awk '{print $1}')"
+  git checkout ${flags} ${branch} 2>/dev/null
+fi
+

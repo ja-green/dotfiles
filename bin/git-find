@@ -1,0 +1,5 @@
+#!/bin/bash
+
+file="$(git ls-files | fzf -0 -1 --ansi -q ${1:-''} --preview='cat {}')"
+pushd ${file%/*} &>/dev/null
+

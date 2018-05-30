@@ -9,7 +9,6 @@
 	ui 		= auto
 [alias]
 	# basic commands
-	co 		= checkout
 	br 		= branch
 	cm 		= commit
 	st 		= status -s
@@ -41,7 +40,6 @@
 	curr 		= rev-parse --abbrev-ref HEAD
 	home    	= !sh -c \"git rev-parse --show-toplevel\"
 	repo		= !sh -c \"basename $(git rev-parse --show-toplevel)\"
-	find		= !sh -c \"git ls-files | grep -i ${@}\"
 	ugrep   	= !sh -c \"pwd && grep -nr "${@}*" --exclude-dir={.git,target} .\"
 	aliases 	= !sh -c \"git config -l | grep alias | cut -c 7-\"
 	undo 		= !sh -c \"git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}\"

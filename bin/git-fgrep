@@ -1,0 +1,5 @@
+#!/bin/bash
+
+file="$(git grep ${1:-''} | sed 's/:.*//' | sort -u | fzf -0 -1 --preview="[ -z $1 ] && cat {} || grep -ihn $1 {}")"
+[ -z ${file} ] || vi ${file} 2>/dev/null
+

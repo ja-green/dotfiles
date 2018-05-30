@@ -1,0 +1,10 @@
+#!/bin/bash
+
+bars=(date net system i3wm menu xwindow)
+
+killall polybar
+
+for bar_name in "${bars[@]}"; do
+  polybar -r ${bar_name}bar &
+done
+
