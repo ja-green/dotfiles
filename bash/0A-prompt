@@ -46,16 +46,21 @@ git_status() {
 }
 
 git_state() {
-    if   [ -d "${PWD}${gitdir}/rebase-merge" ] || [ -d "${PWD}${gitdir}/rebase-apply" ]; then
-        echo -e " (\001${GRN}\002rebasing\001${RST}\002)"
+    if   [ -d "${PWD}${gitdir}/rebase-merge" ]; then
+      local step="$(cat ${gitdir}/rebase-merge/msgnum)/$(cat ${gitdir}/rebase-merge/end)"
+      echo -e " (\001${GRN}\002rebasing ${step}\001${RST}\002)"
+    elif [ -d "${PWD}${gitdir}/rebase-apply" ]; then
+      local step="$(cat ${gitdir}/rebase-apply/next)/$(cat ${gitdir}/rebase-apply/last)"
+      echo -e " (\001${GRN}\002rebasing ${step}\001${RST}\002)"
+    
     elif [ -f "${PWD}${gitdir}/MERGE_HEAD" ]; then
-	echo -e " (\001${RED}\002merging\001${RST}\002)"
+      echo -e " (\001${RED}\002merging\001${RST}\002)"
     elif [ -f "${PWD}${gitdir}/CHERRY_PICK_HEAD" ]; then
-	echo -e " (\001${BLU}\002cherry-picking\001${RST}\002)"
+      echo -e " (\001${BLU}\002cherry-picking\001${RST}\002)"
     elif [ -f "${PWD}${gitdir}/REVERT_HEAD" ]; then
-	echo -e " (\001${CYN}\002reverting\001${RST}\002)"
+      echo -e " (\001${CYN}\002reverting\001${RST}\002)"
     elif [ -f "${PWD}${gitdir}/BISECT_LOG" ]; then
-	echo -e " (\001${MAG}\002bisecting\001${RST}\002)" 
+      echo -e " (\001${MAG}\002bisecting\001${RST}\002)" 
     fi
 }
 
