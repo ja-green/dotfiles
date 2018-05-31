@@ -1,5 +1,15 @@
 #!/bin/bash
 
-file="$(git grep ${1:-''} | sed 's/:.*//' | sort -u | fzf -0 -1 --preview="[ -z $1 ] && cat {} || grep -ihn $1 {}")"
-[ -z ${file} ] || vi ${file} 2>/dev/null
+flags=""
+shstr=""
+
+while test $# -gt 0; do
+  case "${1}" in
+    -*) flags="${flags} ${1}"; shift ;;
+     *) shstr="${shstr} ${1}"; shift ;;
+  esac
+done
+
+file="$(git grep ${flags} ${shstr:-''} | sed 's/:.*//' | sort -u | fzf -0 -1 --preview="[ -z $shstr ] && cat {} || grep -ihn $shstr {}")"
+[ -z ${file} ] || vi ${file} +/"${shstr}" 2>/dev/null
 
