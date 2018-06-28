@@ -1,0 +1,44 @@
+#!/bin/bash
+
+cmd_pr() {
+  [ -z "${message}" ] \
+    && message+="$(git rev-parse --abbrev-ref HEAD): " \
+    && message+="$(git log --oneline --format=%B -n 1 HEAD | head -n 1)"
+
+  [ ! -z "${assignee}" ] && hub pull-request -a "${assignee}"
+  [ ! -z "${new}"      ] && hub pull-request "${flags}" -c -m "${message}"
+  [ ! -z "${list}"     ] && hub pr list --format="%sC%>(8)%I%Creset [%au] (%H) %t 1%n" ${flags}
+  [ ! -z "${pr_id}"    ] && hub pr checkout "${pr_id}" ${flags}
+}
+
+main() {
+  [[ ${#} -eq 0 ]] && hub help pull-request
+
+  flags=""
+
+  while [ -n "${1}" ]; do
+    case "${1}" in
+    --) shift; break;;
+    -*) case "${1}" in
+    -m|--message)  [ ! -z "${2}" ] && message="${2}";  shift || hub pull-request -h ;;
+    -c|--checkout) [ ! -z "${2}" ] && pr_id="${2}";    shift || hub pr ;;
+    -a|--assign)   [ ! -z "${2}" ] && assignee="${2}"; shift || hub pull-request -h ;;
+    -l|--list)     list=1 ;;
+    -n|--new)      new=1 ;;
+    -h|--help)     hub help pull-request ;;
+    -*)            flags+="${1} " ;;
+    esac ;;
+
+    *) flags+="${1} " ;;
+
+    esac
+    shift
+
+  done
+
+  cmd_pr
+}
+
+main ${@}
+
+exit ${?}
