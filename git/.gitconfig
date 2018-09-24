@@ -1,45 +1,86 @@
+[core]
+  editor         = nvim
+  pager          = more
+
 [init]
-  	templatedir 	= ~/Applications/personal-development-environment/src/github.com/ja-green/dotfiles/git/template.d
+  templatedir    = ~/Applications/personal-development-environment/src/github.com/ja-green/dotfiles/git/template.d
+
 [user]
-	email 		= jack.green@digital.hmrc.gov.uk
-	name 		= ja-green
+	email 		     = jack.green@digital.hmrc.gov.uk
+	name 		       = ja-green
+
 [web]
-	browser 	= google-chrome
+	browser 	     = qt
+
+[browser "qt"]
+    cmd          = /usr/local/bin/qt
+
 [color]
-	ui 		= auto
+	ui 		         = auto
+  interactive    = auto
+
+[mergetool "nvim"]
+  cmd            = nvim -f -c \"Gdiff master\" \"$MERGED\"
+
+[merge]
+	summary        = true
+	tool           = nvim
+	conflictstyle  = diff3
+
+[diff]
+  mnemonicprefix = true
+
+[transfer]
+	fsckobjects    = true
+
+[fetch]
+	fsckobjects    = true
+
+[receive]
+	fsckobjects    = true
+
+[pull]
+  rebase         = true
+
+[rerere]
+	enabled        = true
+	autoupdate     = true
+
+[submodule]
+	fetchjobs      = 8
+
 [alias]
-	# basic commands
-	br 		= branch
-	cm 		= commit
-	st 		= status -s
-	df		= diff
-	cl		= clone
+	## builtin
+	br 		         = branch
+	cm 		         = commit
+	st 		         = status -s
+	df		         = diff
+	dt		         = difftool
+	ds		         = describe
+	mt		         = mergetool
+	ls		         = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	ll 		         = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	mb 		         = merge --no-ff --no-commit
+  pl             = pull
+  pu             = push
+  ft             = fetch
+  pf             = push --force-with-lease
+  sy             = sync
 
-	# logs
-	ls		= log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-	ll 		= log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  ## external
+	co		         = extern-checkout
+	cl		         = extern-clone
+	fd		         = extern-find
+	ag		         = extern-grep
+	in		         = extern-info # TODO
+	rq		         = extern-pull-request
+	sq		         = extern-squash # TODO
+	sp		         = extern-sprint
+	vf		         = extern-verify
+  bw             = extern-browse
+  dp             = extern-deploy
 
-	# merging
-	um 		= reset --merge ORIG_HEAD
-	mb 		= merge --no-ff --no-commit
-	mbo 		= !sh -c \"git merge --no-ff origin/${@} --no-commit\"
-	mlb 		= !sh -c \"git merge --no-ff origin/$(git rev-parse --abbrev-ref @{-1}) --no-commit\"
-	
-	# diff
-	diffcb 		= !sh -c \"git diff master..$(git curr)\"
-	difflb 		= !sh -c \"git diff master..$(git rev-parse --abbrev-ref @{-1})\"
-
-	# rebasing
-	squash		= !sh -c \"git reset --soft HEAD~${1} && git commit -m ${2:-"$(git log --oneline --format=%B -n 1 HEAD | head -n 1)"}\"
-
-	# pull request
-	pr		= !sh -c \"hub pull-request ${1:-"$(git rev-parse --abbrev-ref HEAD): $(git log --oneline --format=%B -n 1 HEAD | head -n 1)"}\"
-
-	# utilities
-	last 		= rev-parse --abbrev-ref @{-1}
-	curr 		= rev-parse --abbrev-ref HEAD
-	home    	= !sh -c \"git rev-parse --show-toplevel\"
-	repo		= !sh -c \"basename $(git rev-parse --show-toplevel)\"
-	ugrep   	= !sh -c \"pwd && grep -nr "${@}*" --exclude-dir={.git,target} .\"
-	aliases 	= !sh -c \"git config -l | grep alias | cut -c 7-\"
-	undo 		= !sh -c \"git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}\"
+	## shell
+	hm    	       = !sh -c \"git rev-parse --show-toplevel\"
+	al             = !sh -c \"git config -l | grep alias | cut -c 7-\"
+	un 	  	       = !sh -c \"git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}\"
