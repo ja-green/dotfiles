@@ -30,14 +30,19 @@ alias git='hub'
 # todoist aliases
 alias td='todoist --color'
 
+# vim aliases
+alias vi='nvim'
+
 # cd aliases
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
 # xclip aliases
-alias xi='xclip -i'
-alias xo='xclip -o'
+alias xi='xclip -i -selection clipboard'
+alias xo='xclip -o -selection clipboard'
+
+alias wrw='lynx https://releases.tax.service.gov.uk/whats-running-where?profile=vat_vc_all'
 
 # add an "alert" alias for long running commands. Use like so: sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history | tail -n1 | sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'

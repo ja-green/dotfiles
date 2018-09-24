@@ -35,6 +35,17 @@ function col {
     awk '{print \$${1}}'
 }
 
+# highlight whitespace characters
+function ws {
+    perl -pe 's/( +)/\033[41m$1\033[00m/g'
+}
+
+# show hexdump
+function hex {
+    od -A n -t x1
+}
+
+# show and search history
 function hs {
     if [[ ${#} -eq 0 ]]; then
         history
@@ -49,6 +60,33 @@ function title {
 
 function sc {
     screen -dm bash -c '"${@}"; exit;'
+}
+
+function ensime {
+  if [ "$(git rev-parse --is-inside-work-tree)" = "true" ]; then
+    version_conf=$(grep -h scalaVersion * */* 2>/dev/null | head -1 | awk '{$1=$1};1' | cut -d '"' -f 2)
+    read -r version <<< "${version_conf}"
+
+    version="${version%\"}"
+    version="${version#\"}"
+
+    repo_exld="$(git rev-parse --absolute-git-dir)/info"
+    repo_home="$(git rev-parse --show-toplevel)"
+  else
+    printf "fatal: must be inside a git repository\n"
+    return 1
+  fi
+
+  mkdir -p "${repo_exld}"
+
+  [ -f "${repo_exld}/exclude" ] \
+    || printf ".ensime*\nensime.sbt\ntags*" > "${repo_exld}/exclude"
+  [ -f "${repo_home}/ensime.sbt" ] \
+    || printf "scalaVersion in ThisBuild := \"${version:-2.11.11}\"\n" > "${repo_home}/ensime.sbt"
+
+  sbt ensimeConfig 
+  sbt test:compile
+  sbt ensimeServerIndex
 }
 
 function cd {

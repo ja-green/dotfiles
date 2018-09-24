@@ -3,11 +3,11 @@
 shopt -s checkwinsize
 
 # enable 256 colour if available
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-  export TERM=gnome-256color
-elif infocmp xterm-256color >/dev/null 2>&1; then
-  export TERM=xterm-256color
-fi
+#if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+#  export TERM=gnome-256color
+#elif infocmp xterm-256color >/dev/null 2>&1; then
+#  export TERM=xterm-256color
+#fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -16,7 +16,7 @@ fi
 source /etc/bash_completion.d/git-prompt
 
 # preferences
-export EDITOR=vi
+export EDITOR=nvim
 export TMPDIR=/tmp
 export PAGER=less
 
@@ -37,6 +37,9 @@ export jenkins_key="$(lpass show --notes dev)"
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 export JAVA_OPTS='-XX:MaxMetaspaceSize=512m -Xmx1524M'
 
+# fix neovim character bug
+export VTE_VERSION="100"
+
 # go path
 export GOPATH=/home/jgreen/Applications/personal-development-environment:/usr/local/go/bin
 
@@ -52,4 +55,3 @@ export NVM_DIR="$HOME/.nvm"
 
 # fasd preferences
 eval "$(fasd --init auto)"
-
