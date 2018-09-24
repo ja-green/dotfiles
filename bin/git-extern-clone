@@ -1,0 +1,47 @@
+#!/bin/bash
+
+cmd_cl() {
+  git clone ${flag} "git@github.com:${repo}.git" \
+   && return
+
+  schstr="$(echo "${repo##*/}" | tr '/\ ' '+')"
+  result="$(curl -s "https://api.github.com/search/repositories?q=${schstr}")"
+  res_amt="$(echo "${result}" | grep -c '"full_name":')"
+
+  for ((i=0; i<${res_amt}; i++ )); do
+    suggestion+=("$(echo "${result}" | python -c "import sys, json; print json.load(sys.stdin)['items'][${i}]['full_name']" &)")
+  done
+
+  wait
+
+  [ "${res_amt}" = "0" ] || printf "\n%s\n" "did you mean:"
+  for ((i=0; i<${res_amt}; i++ )); do
+    printf "  %s\n" "${suggestion[${i}]}"
+  done
+
+  return 1
+}
+
+main() {
+  [[ ${#} -eq 0 ]] \
+    && printf "fatal: %s\n" "you must specify a repository to clone" \
+    && exit 1
+
+  while [ -n "${1}" ]; do
+    case "${1}" in
+    --) shift; break;;
+    -h|--help) git clone -h; exit 1 ;;
+    -*) flag+="${1} " ;;
+    *)  repo="${1}" ;;
+
+    esac
+    shift
+
+  done
+
+  cmd_cl
+}
+
+main ${@}
+
+exit ${?}

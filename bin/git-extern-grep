@@ -11,5 +11,5 @@ while test $# -gt 0; do
 done
 
 file="$(git grep ${flags} ${shstr:-''} | sed 's/:.*//' | sort -u | fzf -0 -1 --preview="[ -z $shstr ] && cat {} || grep -ihn $shstr {}")"
-[ -z ${file} ] || vi ${file} +/"${shstr}" 2>/dev/null
+[ -z ${file} ] || nvim ${file} +/"${shstr}" 2>/dev/null
 

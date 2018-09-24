@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+die() {
+  printf "fatal: ${1}\n" "${2}" >&2
+
+  exit 1
+}
+
+get_url() {
+  printf "$(git config remote.origin.url | sed "s/git@\(.*\):\(.*\).git/https:\/\/\1\/\2/")/${1}"
+}
+
+main() {
+  url="$(get_url "${1}")"
+
+  git web--browse "${url}"
+}
+
+main ${@}

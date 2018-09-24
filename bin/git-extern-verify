@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+br="$(git rev-parse --abbrev-ref HEAD)"
+
+die() {
+  printf "fatal: ${1}\n" "${2}" >&2
+  printf "info: use '--no-verify' to disable this check\n"
+
+  exit 1
+}
+
+verify_up_to_date() {
+  git fetch \
+    && cn="$(git log HEAD..origin/master --oneline | wc -l)"
+
+  [ "${cn}" = "0" ] \
+    || die "branch '${br}' not up to date with master.\
+    \nrun 'git rebase master' and try again\n"
+}
+
+verify_branch() {
+  [ "${br}" = "master" ] \
+    && die "cannot commit directly to 'master'\n"
+
+  [[ "${br}" =~ ^BTAT-[0\-9]{4}$ ]] \
+    || die "branch name '${br}' is incorrectly formatted\n"
+}
+
+main() {
+  verify_branch
+  verify_up_to_date
+}
+
+main

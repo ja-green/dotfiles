@@ -1,0 +1,73 @@
+#!/bin/bash
+
+get_issues() {
+  res="$(curl -u jack.green:C8gm5zRqm^g83l -X GET -H "Content-Type: application/json" https://jira.tools.tax.service.gov.uk/rest/api/2/search?jql='project=BTAT+AND+sprint+in+openSprints()+AND+Sprint="VAT+23+is+now+IT"&fields=id,key,summary,description,issuetype')"
+
+  keys=($(echo "${res}" | jq -r '.issues[] | select(.fields.issuetype.subtask == false) | .key'))
+
+  IFS=$'\n'; desc=($(echo "${res}" | jq -r '.issues[] | select(.fields.issuetype.subtask == false) | .fields.summary' | tr ' ' ':')); unset IFS;
+
+  for k in ${keys[@]}; do
+    printf "%s\n" "${k}"
+  done
+
+  for d in ${desc[@]}; do
+    printf "%s\n" "${d}"
+  done
+}
+
+get_issues_old() {
+  unset issues
+
+  res=($(jira list -t debug --query "sprint in openSprints() AND project = 'BTAT' AND Sprint = 'VAT 23 is now IT' AND parent = '${1:0:9}'"))
+
+  local idx=-1
+  for elem in ${res[@]}; do
+    [[ "${elem}" =~ ^BTAT-[0\-9]{4}:$ ]] \
+      && ((idx++))
+
+    issues[${idx}]+="${elem} "
+  done
+}
+
+cmd_sprint() {
+  get_issues
+
+
+  exit
+
+  for ((i=0; i<${#parents[@]}; i++)); do
+    printf "\n%s\n" "${parents[${i}]}"
+
+    get_issues "${parents[${i}]}"
+
+    for ((j=0; j<${#issues[@]}; j++)); do
+      printf "  %s\n" "${issues[${j}]}"
+    done
+  done
+
+  printf "\n"
+}
+
+main() {
+  while [ -n "${1}" ]; do
+    case "${1}" in
+    --) shift; break;;
+    -*) case "${1}" in
+    -h|--help)     jira help ;;
+    -*)            flags+="${1} " ;;
+    esac ;;
+
+    *) flags+="${1} " ;;
+
+    esac
+    shift
+
+  done
+
+  cmd_sprint
+}
+
+main ${@}
+
+exit ${?}

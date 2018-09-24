@@ -1,0 +1,84 @@
+#!/bin/bash
+
+usage() {
+  printf "${1}\n"
+
+  exit 0
+}
+
+die() {
+  printf "fatal: ${1}\n" "${2}" >&2
+
+  exit 1
+}
+
+git-rev-parse &>/dev/null \
+  && repo="$(basename "$(git rev-parse --show-toplevel)")" \
+  || repo="$(basename "$(git ls-remote --get-url)" .git)"
+
+ci_op="https://ci-open.tax.service.gov.uk"
+ci_dv="https://ci-dev.tax.service.gov.uk"
+ci_bl="https://ci-build.tax.service.gov.uk"
+or_dv="https://orchestrator.tools.development.tax.service.gov.uk"
+or_qa="https://orchestrator.tools.qa.tax.service.gov.uk"
+or_sg="https://orchestrator.tools.staging.tax.service.gov.uk"
+or_pd="https://orchestrator.tools.production.tax.service.gov.uk"
+
+extern_deploy_usage="\
+usage: git deploy [<options>]
+
+    -e, --existing    open in existing browser session
+    -p, --prod        deploy to production
+
+"
+
+qt_tabs() { qt --target tab-bg-silent -l error "${1}"; }
+qt_tabv() { qt --target tab           -l error "${1}"; }
+qt_wind() { qt --target window        -l error "${1}"; }
+
+cmd_extern_deploy() {
+  if [ ! -z "${prod}" ]; then
+    [ ! -z "${exst}" ] \
+      && qt_tabv "${or_pd}/job/deploy-microservice" \
+      || qt_wind "${or_pd}/job/deploy-microservice"
+
+    return 0
+  fi
+
+  [ ! -z "${exst}" ] \
+    && qt_tabs "${ci_op}/job/${repo}" \
+    || qt_wind "${ci_op}/job/${repo}"
+
+  qt_tabs "${ci_dv}/job/view-vat-acceptance-tests"
+  qt_tabs "${ci_dv}/job/create-a-release-slug"
+  qt_tabs "${or_dv}/job/deploy-microservice"
+  qt_tabs "${ci_op}/job/create-a-release"
+  qt_tabs "${ci_bl}/job/create-a-release-slug"
+  qt_tabs "${or_qa}/job/deploy-microservice"
+  qt_tabs "${or_sg}/job/deploy-microservice"
+}
+
+main() {
+  while [ -n "${1}" ]; do
+    case "${1}" in
+    --) shift; break ;;
+    -*) case "${1}" in
+    -h|--help)     usage "${extern_deploy_usage}" ;;
+    -e|--existing) exst=1 ;;
+    -p|--prod)     prod=1 ;;
+    -*) die "unknown option '%s'\n" "${1}" ;;
+    esac ;;
+
+    *)  die "unknown option '%s'\n" "${1}" ;;
+
+    esac
+    shift
+
+  done
+
+  cmd_extern_deploy
+}
+
+main ${@}
+
+exit ${?}

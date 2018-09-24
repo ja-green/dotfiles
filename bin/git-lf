@@ -1,5 +1,0 @@
-#!/bin/bash
-
-commit="$(git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate | fzf -0 -1 --preview='git diff-tree --no-commit-id --name-only -r $(echo {} | cut -f 1 -d " ")')"
-[ -z ${commit} ] || git checkout ${commit}
-
