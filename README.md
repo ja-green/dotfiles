@@ -36,4 +36,3 @@ Please read [CONTRIBUTING](https://github.com/ja-green/dotfiles/CONTRIBUTING) fo
 ## License
 
 This project is licensed under the APACHE 2.0 License - see [LICENSE](https://github.com/ja-green/svc/LICENSE.md) for details
-
