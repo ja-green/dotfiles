@@ -23,7 +23,7 @@
   relativepaths      = false
   showstash          = true
   short              = true
-  branch             = true
+  branch             = false
   showuntrackedfiles = all
 
 [mergetool "nvim"]
