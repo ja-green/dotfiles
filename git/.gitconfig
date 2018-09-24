@@ -1,86 +1,96 @@
 [core]
-  editor         = nvim
-  pager          = more
+  editor             = nvim
+  pager              = more
 
 [init]
-  templatedir    = ~/Applications/personal-development-environment/src/github.com/ja-green/dotfiles/git/template.d
+  templatedir        = ~/Applications/personal-development-environment/src/github.com/ja-green/dotfiles/git/template.d
 
 [user]
-	email 		     = jack.green@digital.hmrc.gov.uk
-	name 		       = ja-green
+	email 		         = jack.green@digital.hmrc.gov.uk
+	name 		           = ja-green
 
 [web]
-	browser 	     = qt
+	browser 	         = qt
 
 [browser "qt"]
-    cmd          = /usr/local/bin/qt
+    cmd              = /usr/local/bin/qt
 
 [color]
-	ui 		         = auto
-  interactive    = auto
+	ui 		             = auto
+  interactive        = auto
+
+[status]
+  relativepaths      = false
+  showstash          = true
+  short              = true
+  branch             = true
+  showuntrackedfiles = all
 
 [mergetool "nvim"]
-  cmd            = nvim -f -c \"Gdiff master\" \"$MERGED\"
+  cmd                = nvim -f -c \"Gdiff master\" \"$MERGED\"
 
 [merge]
-	summary        = true
-	tool           = nvim
-	conflictstyle  = diff3
+	summary            = true
+	tool               = nvim
+	conflictstyle      = diff3
 
 [diff]
-  mnemonicprefix = true
+  mnemonicprefix     = true
 
 [transfer]
-	fsckobjects    = true
+	fsckobjects        = true
 
 [fetch]
-	fsckobjects    = true
+	fsckobjects        = true
 
 [receive]
-	fsckobjects    = true
+	fsckobjects        = true
 
 [pull]
-  rebase         = true
+  rebase             = true
 
 [rerere]
-	enabled        = true
-	autoupdate     = true
+	enabled            = true
+	autoupdate         = true
 
 [submodule]
-	fetchjobs      = 8
+  fetchjobs          = 8
+
+[worktree]
+  guessremote        = true
 
 [alias]
 	## builtin
-	br 		         = branch
-	cm 		         = commit
-	st 		         = status -s
-	df		         = diff
-	dt		         = difftool
-	ds		         = describe
-	mt		         = mergetool
-	ls		         = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-	ll 		         = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-	mb 		         = merge --no-ff --no-commit
-  pl             = pull
-  pu             = push
-  ft             = fetch
-  pf             = push --force-with-lease
-  sy             = sync
+	br 		             = branch
+	cm 		             = commit
+	st 		             = status -s
+	df		             = diff
+	dt		             = difftool
+	ds		             = describe
+	mt		             = mergetool
+	ls		             = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	ll 		             = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	mb 		             = merge --no-ff --no-commit
+  pl                 = pull
+  pu                 = push
+  ft                 = fetch
+  pf                 = push --force-with-lease
+  sy                 = sync
 
   ## external
-	co		         = extern-checkout
-	cl		         = extern-clone
-	fd		         = extern-find
-	ag		         = extern-grep
-	in		         = extern-info # TODO
-	rq		         = extern-pull-request
-	sq		         = extern-squash # TODO
-	sp		         = extern-sprint
-	vf		         = extern-verify
-  bw             = extern-browse
-  dp             = extern-deploy
+	co		             = extern-checkout
+	cl		             = extern-clone
+	fd		             = extern-find
+	ag		             = extern-grep
+	in		             = extern-info # TODO
+	rq		             = extern-pull-request
+	sq		             = extern-squash # TODO
+	sp		             = extern-sprint
+	vf		             = extern-verify
+  bw                 = extern-browse
+  dp                 = extern-deploy
 
 	## shell
-	hm    	       = !sh -c \"git rev-parse --show-toplevel\"
-	al             = !sh -c \"git config -l | grep alias | cut -c 7-\"
-	un 	  	       = !sh -c \"git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}\"
+	hm                 = !sh -c \"git rev-parse --show-toplevel\"
+	al                 = !sh -c \"git config -l | grep alias | cut -c 7-\"
+	un 	  	           = !sh -c \"git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}\"
