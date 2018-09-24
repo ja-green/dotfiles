@@ -14,6 +14,7 @@
 [user]
 	email 		         = jack.green@digital.hmrc.gov.uk
 	name 		           = ja-green
+  signingkey         = 82E71E34
 
 ## command
 
@@ -42,7 +43,10 @@
 ## preferences
 
 [browser "qt"]
-    cmd              = /usr/local/bin/qt
+  cmd                = /usr/local/bin/qt
+
+[commit]
+  gpgsign            = true
 
 [fetch]
 	fsckobjects        = true
