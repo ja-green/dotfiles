@@ -11,34 +11,40 @@ set $win Mod4
 
 # define directories
 set $screenshots	$HOME/Pictures/screenshot
-set $dotfiles		$DOTFILES
+set $dotfiles		  $DOTFILES
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
+# define default gaps sizes
+set $gaps_default_inner 30
+set $gaps_default_outer 5
+
+# font for window titles
 font pango:monospace 8
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # gaps
-gaps inner 10
-gaps outer 5
+gaps inner $gaps_default_inner
+gaps outer $gaps_default_outer
 
 # title format
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] 	   border pixel 2
+for_window [title="^tab.$"]  floating enable
+for_window [title="^tab.$"]  sticky enable
+for_window [title="^tab.$"]  move absolute position 0 30
 
 # colours
-set_from_resource $border	color0	#bf616aFF
+set_from_resource $border	    color0	#bf616aFF
 set_from_resource $background	color0	#2b303bCC
-set_from_resource $text		color8	#c0c5ceFF
-set_from_resource $active	color4	#bf616aFF
-set_from_resource $inactive	color7	#c0c5ceFF
+set_from_resource $text		    color8	#c0c5ceFF
+set_from_resource $active	    color4	#bf616aFF
+set_from_resource $inactive	  color7	#c0c5ceFF
 
-client.focused		$border		$background	$text		$border		$border
-client.unfocused	$background	$background	$background	$background	$background
-client.urgent		$background	$background	$background	$background	$background
+client.focused		  $border		  $background	$text		    $border		  $border
+client.unfocused	  $background	$background	$background	$background	$background
+client.urgent		    $background	$background	$background	$background	$background
 client.placeholder	$background	$background	$background	$background	$background
-client.background	$background
+client.background	  $background
 
 ## BINDS
 
@@ -52,26 +58,29 @@ bindsym XF86MonBrightnessUp 	exec xbacklight -inc 20
 bindsym XF86MonBrightnessDown 	exec xbacklight -dec 20
 
 # start a terminal
-bindsym $mod+Return 		exec i3-sensible-terminal
+bindsym $mod+Return 		exec urxvt -e tmux -2
 
 # floating full screen video
 bindsym $mod+y 			fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 870 25
 
 # kill focused window
-bindsym $mod+Shift+q 		kill
 bindsym $mod+q			kill
 
 # previous workspace
 bindsym $mod+Tab 		workspace back_and_forth
 
 # lock screen
-bindsym $mod+l			exec lock.sh
+bindsym $mod+comma  exec lock.sh
 
 # start screensaver
-bindsym $mod+k			workspace $ws10; exec screensaver.sh; kill
+bindsym $mod+period	exec screensave; kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d 			exec dmenu_run
+bindsym $mod+d      exec dmenu_run
+
+# terminal tabs
+bindsym $mod+F1			exec terminator --title tab1 -x vi /tmp/notes
+bindsym $mod+F2			exec terminator --title tab2 -x nmtui
 
 # take screenshot
 bindsym Print 			exec scrot    $screenshots/$(date +%s).png
@@ -83,6 +92,12 @@ bindsym $mod+Left 		focus left
 bindsym $mod+Down 		focus down
 bindsym $mod+Up 		focus up
 bindsym $mod+Right 		focus right
+
+# change focus
+bindsym $mod+h			focus left
+bindsym $mod+j			focus down
+bindsym $mod+k			focus up
+bindsym $mod+l			focus right
 
 # move focused window
 bindsym $mod+Shift+j 		move left
@@ -97,7 +112,7 @@ bindsym $mod+Shift+Up 		move up
 bindsym $mod+Shift+Right 	move right
 
 # split in orientation
-bindsym $mod+h 			split h
+bindsym $mod+z 			split h
 bindsym $mod+v 			split v
 
 # enter fullscreen mode for the focused container
@@ -183,11 +198,76 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+set $mode_gaps 		Gaps: (o) outer, (i) inner
+set $mode_gaps_outer 	Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner 	Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+ 
+mode "$mode_gaps" {
+        bindsym o      		mode "$mode_gaps_outer"
+        bindsym i      		mode "$mode_gaps_inner"
+
+        bindsym Return 		mode "default"
+        bindsym Escape 		mode "default"
+	bindsym $mod+g		mode "default"
+}
+ 
+mode "$mode_gaps_inner" {
+        bindsym plus  		gaps inner current plus 5
+        bindsym minus 		gaps inner current minus 5
+        bindsym 0     		gaps inner current set 0
+	bindsym BackSpace	gaps inner current set $gaps_default_inner
+
+        bindsym Shift+plus  	gaps inner all plus 5
+        bindsym Shift+minus 	gaps inner all minus 5
+        bindsym Shift+0     	gaps inner all set 0
+ 
+        bindsym Return 		mode "default"
+        bindsym Escape 		mode "default"
+	bindsym $mod+g		mode "default"
+}
+
+mode "$mode_gaps_outer" {
+        bindsym plus  		gaps outer current plus 5
+        bindsym minus 		gaps outer current minus 5
+        bindsym 0     		gaps outer current set 0
+	bindsym BackSpace	gaps outer current set $gaps_default_outer
+ 
+        bindsym Shift+plus  	gaps outer all plus 5
+        bindsym Shift+minus 	gaps outer all minus 5
+        bindsym Shift+0     	gaps outer all set 0
+ 
+        bindsym Return 		mode "default"
+        bindsym Escape 		mode "default"
+	bindsym $mod+g		mode "default"
+}
+
+bindsym $mod+g mode "$mode_gaps"
+
+# bar {
+#     position top
+#     height 40
+#     i3bar_command i3bar -t
+# }
+
 ## LAUNCH
 
+# start compton
+exec_always compton -b --config $HOME/.config/compton/compton.conf
+
+# start polybar
+exec_always pbar
+
 # set wallpaper
-exec ~/.fehbg &
+exec_always set-bg
 
-# exec --no-startup-id ~/.config/polybar/run_polybar.sh 
-exec --no-startup-id "polybar top -r"
+# reset tmux id
+exec_always killall tmux
 
+# start dunst
+exec --no-startup-id dunst
+
+# start network manager
+exec --no-startup-id nm-applet
+
+# check for multi-monitor setup
+exec --no-startup-id display-visor -f -l
