@@ -1,3 +1,9 @@
+## core
+
+[color]
+	ui 		             = auto
+  interactive        = auto
+
 [core]
   editor             = nvim
   pager              = more
@@ -9,15 +15,22 @@
 	email 		         = jack.green@digital.hmrc.gov.uk
 	name 		           = ja-green
 
-[web]
-	browser 	         = qt
+## command
 
-[browser "qt"]
-    cmd              = /usr/local/bin/qt
+[diff]
+  mnemonicprefix     = true
 
-[color]
-	ui 		             = auto
-  interactive        = auto
+[merge]
+	summary            = true
+	tool               = nvim
+	conflictstyle      = diff3
+
+[pull]
+  default            = current
+  rebase             = true
+
+[push]
+  default            = current
 
 [status]
   relativepaths      = false
@@ -26,28 +39,19 @@
   branch             = false
   showuntrackedfiles = all
 
-[mergetool "nvim"]
-  cmd                = nvim -f -c \"Gdiff master\" \"$MERGED\"
+## preferences
 
-[merge]
-	summary            = true
-	tool               = nvim
-	conflictstyle      = diff3
-
-[diff]
-  mnemonicprefix     = true
-
-[transfer]
-	fsckobjects        = true
+[browser "qt"]
+    cmd              = /usr/local/bin/qt
 
 [fetch]
 	fsckobjects        = true
 
+[mergetool "nvim"]
+  cmd                = nvim -f -c \"Gdiff master\" \"$MERGED\"
+
 [receive]
 	fsckobjects        = true
-
-[pull]
-  rebase             = true
 
 [rerere]
 	enabled            = true
@@ -56,41 +60,49 @@
 [submodule]
   fetchjobs          = 8
 
+[transfer]
+	fsckobjects        = true
+
+[web]
+	browser 	         = qt
+
 [worktree]
   guessremote        = true
+
+## alias
 
 [alias]
 	## builtin
 	br 		             = branch
 	cm 		             = commit
-	st 		             = status -s
 	df		             = diff
-	dt		             = difftool
 	ds		             = describe
-	mt		             = mergetool
-	ls		             = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	dt		             = difftool
 	ll 		             = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	ls		             = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
 	mb 		             = merge --no-ff --no-commit
-  pl                 = pull
-  pu                 = push
+	mt		             = mergetool
+	st 		             = status
   ft                 = fetch
   pf                 = push --force-with-lease
+  pl                 = pull
+  pu                 = push
   sy                 = sync
 
   ## external
-	co		             = extern-checkout
-	cl		             = extern-clone
-	fd		             = extern-find
 	ag		             = extern-grep
+	cl		             = extern-clone
+	co		             = extern-checkout
+	fd		             = extern-find
 	in		             = extern-info # TODO
 	rq		             = extern-pull-request
-	sq		             = extern-squash # TODO
 	sp		             = extern-sprint
+	sq		             = extern-squash # TODO
 	vf		             = extern-verify
   bw                 = extern-browse
   dp                 = extern-deploy
 
 	## shell
-	hm                 = !sh -c \"git rev-parse --show-toplevel\"
 	al                 = !sh -c \"git config -l | grep alias | cut -c 7-\"
+	hm                 = !sh -c \"git rev-parse --show-toplevel\"
 	un 	  	           = !sh -c \"git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}\"
