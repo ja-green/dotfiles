@@ -1,0 +1,32 @@
+! uxrvt
+!
+URxvt.termName:               xterm-256color
+
+*font:                        xft:inconsolata:pixelsize=20
+*boldFont:                    xft:inconsolata:pixelsize=20
+URxvt.font:                   xft:inconsolata:pixelsize=20
+URxvt.boldFont:               xft:inconsolata:pixelsize=20
+URxvt.letterSpace:            -1
+
+URxvt.perl-ext-common:        default,matcher,clipboard,font-size
+URxvt.urlLauncher:            qt
+URxvt.matcher.button:         1
+
+URxvt.saveLines:              1000
+
+URxvt.iso14755:               false
+URxvt.scrollBar:              false
+
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.iso14755:               false
+
+! clear the scrollback
+! URxvt.keysym.Control-l:       clear && printf '\\e[3J'\n
+
+! scale fonts
+URxvt.keysym.C-S-plus:        font-size:increase
+URxvt.keysym.C-KP_Add:        font-size:increase
+URxvt.keysym.C-S-underscore:  font-size:decrease
+URxvt.keysym.C-KP_Subtract:   font-size:decrease
+URxvt.keysym.C-0:             font-size:reset
+URxvt.keysym.C-KP_0:          font-size:reset
