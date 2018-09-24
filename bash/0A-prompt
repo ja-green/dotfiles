@@ -66,8 +66,12 @@ git_state() {
 
 git_upstream() {
     if [[ ! "$(cat ${prompt_cache})" = "${toplevel}" ]]; then
-      git sync &>/dev/null &
-      git fetch --recurse-submodules -j 10 &>/dev/null &
+      git branch --merged | \
+        egrep -v "(^\*|master)" | \
+        xargs --no-run-if-empty git branch -d &>/dev/null &
+
+      git fetch --prune --recurse-submodules -j 10 &>/dev/null &
+
       echo -n "${toplevel}" > "${prompt_cache}"
       echo -e " \u25CC" && return
     fi
@@ -78,11 +82,11 @@ git_upstream() {
 
     count="$(git rev-list --count --left-right @{upstream}...HEAD 2>/dev/null)"
     case "${count}" in
-      "") 		echo -e " \u2192 \001${CYN}\002none\001${RST}\002"                 && return  ;; # no upstream (was \u290F)
-      "0	0") 	echo -e ""                                                          && return  ;; # equal to upstream
-      "0	"*) 	echo -e " - \001${GRN}\002ahead ${count#0	}\001${RST}\002"    && return  ;; # ahead of upstream      (\u2193)
-      *"	0") 	echo -e " \u2192 \001${MAG}\002behind ${count%	0}\001${RST}\002"   && return  ;; # behind upstream        (\u2191)
-		 *)	echo -e " \u2192 \001${RED}\002diverged\001${RST}\002"             && return  ;; # diverged from upstream (\u21C5)	
+          "") echo -e " \u2192 \001${CYN}\002none\001${RST}\002"                 && return  ;; # no upstream            (\u290F)
+      "0	0") echo -e ""                                                         && return  ;; # equal to upstream
+      "0	"*) echo -e " \u2192 \001${GRN}\002ahead ${count#0	}\001${RST}\002"   && return  ;; # ahead of upstream      (\u2193)
+      *"	0") echo -e " \u2192 \001${MAG}\002behind ${count%	0}\001${RST}\002"  && return  ;; # behind upstream        (\u2191)
+		       *)	echo -e " \u2192 \001${RED}\002diverged\001${RST}\002"             && return  ;; # diverged from upstream (\u21C5)	
     esac
 }
 
