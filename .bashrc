@@ -16,4 +16,3 @@ source_files() {
 }
 
 source_files ${dotfiles_repo}/bash
-
