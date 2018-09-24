@@ -1,0 +1,15 @@
+type                            = internal/i3
+ws-icon-default                 = 
+
+label-focused-foreground        = ${colors.color2}
+
+pin-workspaces                  = true
+label-mode                      = %mode%
+strip-wsnumbers                 = true
+
+label-mode-padding              = 10
+label-focused                   = %icon%
+label-unfocused                 = %icon%
+label-focused-underline         = ${colors.color2}
+label-visible                   = %icon%
+label-visible-padding           = 4

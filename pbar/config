@@ -1,302 +1,54 @@
-;                _         _                                         __  _        
-;  _ __    ___  | | _   _ | |__    __ _  _ __    ___   ___   _ __   / _|(_)  __ _ 
-; | '_ \  / _ \ | || | | || '_ \  / _` || '__|  / __| / _ \ | '_ \ | |_ | | / _` |
-; | |_) || (_) || || |_| || |_) || (_| || |    | (__ | (_) || | | ||  _|| || (_| |
-; | .__/  \___/ |_| \__, ||_.__/  \__,_||_|     \___| \___/ |_| |_||_|  |_| \__, |
-; |_|               |___/                                                   |___/ 
-;
-                                      
-[bar/top]
-width = 100%
-height = 25
-monitor=eDP-1
+[colors]
+include-file		= $DOTFILES/pbar/colors.d/standard.colors
 
-background=${xrdb:color0}
-foreground=${xrdb:color15}
+[fonts]
+include-file		= $DOTFILES/pbar/fonts.d/standard.fonts
 
-underline-size = 3
-underline-color = ${xrdb:color2}
+;; bars
 
-spacing = 1
-padding-left = 0
-padding-right = 0
-module-margin-left = 0 
-module-margin-right = 0
+[bar/main]
+include-file            = $DOTFILES/pbar/bar.d/main.bar
 
-font-0 = Ubuntu:pixelsize=20;0
-font-1 = FontAwesome:size=9;0
-font-2 = siji:pixelsize=8;0
-font-3 = NotoSans:pixelsize=8;-2
+[bar/timebar]
+include-file            = $DOTFILES/pbar/bar.d/time.bar
 
-; Noto Sans
+[bar/netbar]
+include-file            = $DOTFILES/pbar/bar.d/net.bar
 
-modules-left = i3
-modules-center = xwindow
-modules-right = wireless-network lock spotify battery  volume date powermenu
+[bar/systembar]
+include-file            = $DOTFILES/pbar/bar.d/system.bar
 
-tray-position=right
+[bar/i3wmbar]
+include-file            = $DOTFILES/pbar/bar.d/i3wm.bar
 
-[bar/secondary]
-font-0 = Noto Sans:pixelsize=20;0
-font-1 = FontAwesome:size=9;0
-font-2 = siji:pixelsize=8;0
-font-3 = NotoSans:pixelsize=8;-2
-monitor=eDP-1
-width = 100%
-height = 25
-modules-left = i3
-modules-center = xwindow
-modules-right = spotify volume date powermenu
-background=${xrdb:color0}
-foreground = ${xrdb:color15}
+[bar/menubar]
+include-file            = $DOTFILES/pbar/bar.d/menu.bar
 
-underline-size = 3
-underline-color = ${xrdb:color2}
+[bar/xwindowbar]
+include-file            = $DOTFILES/pbar/bar.d/xwindow.bar
 
-spacing = 1
-padding-left = 0
-padding-right = 0
-module-margin-left = 0 
-module-margin-right = 0
-
-; MODULES
-
-[module/i3]
-ws-icon-0=1;
-ws-icon-1=2;
-ws-icon-2=3;
-ws-icon-3=4;
-ws-icon-4=5;
-ws-icon-default=
-pin-workspaces=true
-type=internal/i3
-label-mode=%mode%
-strip-wsnumbers=true
-label-mode-padding=2
-label-focused=%icon% 
-label-unfocused=%icon%
-label-focused-underline=${xrdb:color8}
-label-focused-padding=4
-label-unfocused-padding=4
-label-visible = %icon%
-label-visible-padding=4
-
-[module/wireless-network]
-type=internal/network
-interface=wlp2s0
-format-connected = <label-connected>
-label-connected =  %essid%
-label-disconnected = No Wi-Fi
-label-connected-padding=1
-
-[module/lock]
-type=custom/text
-click-left=xautolock -locknow
-content=""
-content-padding=4
-
-[module/discord]
-type=custom/script
-interval=1
-exec-if=pgrep -i discord && cat /tmp/discord_state
-exec=cat /tmp/discord_state
-[module/spotify]
-type=custom/script
-interval=1
-exec-if=pgrep -i spotify
-exec=spotify-now -i "%title - %artist" -e "Loading..." -p ""
-click-left=spotify-control play
-label="%output:0:32:...%"
-label-padding=2
-label-font=3
-format-prefix=""
-[module/bspwm]
-type = internal/bspwm
-
-ws-icon-0 = web;
-ws-icon-1 = term;
-ws-icon-2 = chat;
-ws-icon-3 = code;
-ws-icon-4 = music;
-ws-icon-default = 
-
-format = <label-state> <label-mode>
-
-label-focused = %icon%
-label-focused-background = #88000000
-label-focused-underline= #ddd
-label-focused-padding = 4
-
-label-occupied = %icon%
-label-occupied-padding = 4
-
-label-urgent = %icon%
-label-urgent-padding = 4
-
-label-empty = %icon%
-label-empty-foreground = #44ffffff
-label-empty-padding = 4
-
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:60:...%
-label-padding = 4
-
-[module/date]
-type = internal/date
-
-; Seconds to sleep between updates
-interval = 1.0
-
-; See "man date" for details on how to format the date string
-; NOTE: if you want to use syntax tags here you need to use %%{...}
-date = %b %d 
-
-; Optional time format
-time = %I:%M
-
-; if `date-alt` or `time-alt` is defined, clicking
-; the module will toggle between formats
-date-alt = %A, %d %B %Y
-time-alt = %H:%M:%S
-
-label =    %date%      %time%
-format = <label>
-;format-background = #ddffffff
-;format-foreground = #333
-format-padding = 3
-
-[module/padding]
-type = custom/text
-content = 	 
-content-foreground = #00000000
-content-background = #55000000
+;; modules
 
 [module/battery]
-type = internal/battery
+include-file            = $DOTFILES/pbar/module.d/battery.module
 
-full-at = 99
+[module/cpu]
+include-file            = $DOTFILES/pbar/module.d/cpu.module
 
-battery = BAT0
-adapter = AC
+[module/i3wm]
+include-file            = $DOTFILES/pbar/module.d/i3wm.module
 
-poll-interval = 5
+[module/menu]
+include-file            = $DOTFILES/pbar/module.d/menu.module
 
-format-charging = <animation-charging>  <label-charging>
-format-discharging = <ramp-capacity>  <label-discharging>
-format-full = <ramp-capacity>  <label-full>
-label-charging = %percentage%%
-label-discharging = %percentage%%
-label-full = %percentage%%
-format-charging-padding = 2
-format-discharging-padding = 2
-format-full-padding = 2
+[module/ram]
+include-file            = $DOTFILES/pbar/module.d/ram.module
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
+[module/time]
+include-file            = $DOTFILES/pbar/module.d/time.module
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
-animation-charging-framerate = 750
+[module/xwindow]
+include-file            = $DOTFILES/pbar/module.d/xwindow.module
 
-[module/backlight]
-type = internal/backlight
-
-card = intel_backlight
-enable-scroll = true
-
-format = <ramp> <label>
-label = %percentage%
-
-ramp-0 = 🌕
-ramp-1 = 🌔
-ramp-2 = 🌓
-ramp-3 = 🌒
-ramp-4 = 🌑
-
-[module/volume]
-type = internal/volume
-
-format-volume = <ramp-volume>  <label-volume>
-format-muted = <label-muted>
-label-volume = %percentage%
-label-muted =   muted
-label-muted-foreground = #aaa
-format-volume-padding = 3
-format-muted-padding = 3
-
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
-ramp-headphones-0 = 
-
-[module/powermenu]
-type = custom/menu
-
-label-open =    
-;label-open-background = #dd0000
-;label-open-foreground = #fff
-label-close = cancel
-;label-close-background = #dd0000
-;label-close-foreground = #fff
-label-open-padding = 3
-label-close-padding = 3 
-
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
-menu-0-0-padding = 3
-menu-0-1-padding = 3
-
-menu-1-0 = reboot?  
-menu-1-0-exec = sudo reboot
-menu-1-0-padding = 3
-
-menu-2-0 = power off?  
-menu-2-0-exec = sudo poweroff
-menu-2-0-padding = 3
-
-[module/mpd]
-type = internal/mpd
-
-host = 127.0.0.1
-port = 6600
-password = 
-
-; Seconds to sleep between progressbar/song timer sync
-; Default: 1
-interval = 2
-
-; Available tags:
-;   <label-song> (default)
-;   <label-time>
-;   <bar-progress>
-;   <toggle> - gets replaced with <icon-(pause|play)>
-;   <toggle-stop> - gets replaced with <icon-(stop|play)>
-;   <icon-random>
-;   <icon-repeat>
-;   <icon-repeatone>
-;   <icon-prev>
-;   <icon-stop>
-;   <icon-play>
-;   <icon-pause>
-;   <icon-next>
-;   <icon-seekb>
-;   <icon-seekf>
-format-online =    <label-song>
-
-; Available tokens:
-;   %artist%
-;   %album%
-;   %date%
-;   %title%
-; Default: %artist% - %title%
-label-song = %title%
-format-online-padding = 3
+[module/wireless-network]
+include-file            = $DOTFILES/pbar/module.d/wireless-network.module

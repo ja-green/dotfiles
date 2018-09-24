@@ -1,10 +1,11 @@
 #!/bin/bash
 
-bars=(date net system i3wm menu xwindow)
-
 killall polybar
 
-for bar_name in "${bars[@]}"; do
-  polybar -r ${bar_name}bar &
-done
+for bar_name in ${DOTFILES}/pbar/bar.d/*; do
+  bar_name=${bar_name##*/}
+  bar_name=${bar_name%.*}
 
+  [ "${bar_name}" != "main" ] \
+    && polybar -r ${bar_name}bar &
+done
