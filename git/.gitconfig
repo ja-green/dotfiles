@@ -46,7 +46,7 @@
   cmd                = /usr/local/bin/qt
 
 [commit]
-  gpgsign            = true
+  gpgsign            = false
 
 [fetch]
 	fsckobjects        = true
