@@ -76,9 +76,9 @@ git_upstream() {
       echo -e " \u25CC" && return
     fi
 
-    if ps -aux | grep -P 'git fetch' | grep -v 'grep' &>/dev/null; then
-      echo -e " \u25CC" && return
-    fi
+    # if ps -aux | grep -P 'git fetch' | grep -v 'grep' &>/dev/null; then
+    #   echo -e " \u25CC" && return
+    # fi
 
     count="$(git rev-list --count --left-right @{upstream}...HEAD 2>/dev/null)"
     case "${count}" in
