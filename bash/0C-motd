@@ -36,3 +36,13 @@ treefetch() {
 }
 
 neofetch --w3m --size 450px --colors 7 15 7 7 7 15 --block_range 0 15
+
+quote_d="${HOME}/Applications/personal-development-environment/src/github.com/ja-green/dotfiles/quotes"
+
+case $(((RANDOM%2)+1)) in
+1) file="${quote_d}/marcus-aurelius"; auth="Marcus Aurelius" ;;
+2) file="${quote_d}/epictetus";       auth="Epictetus"       ;;
+esac
+
+printf "\n\"%s\"\n\n  - %s\n\n" \
+  "$(shuf -n 1 ${file} | fold -s -w$((COLUMNS/2)))" "${auth}"
