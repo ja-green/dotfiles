@@ -1,21 +1,20 @@
-[ -z "${SSH_AUTH_SOCK}" ] || return
+# [ -z "${SSH_AUTH_SOCK}" ] || return
 
-eval $(ssh-agent -s)
+# eval $(ssh-agent -s)
 
-expect << EOF
-spawn ssh-add "${HOME}/.ssh/id_rsa"
-expect "Enter passphrase"
-send "$(lpass show --password ssh)\r"
-expect eof
-EOF
+# expect << EOF
+# spawn ssh-add "${HOME}/.ssh/id_rsa"
+# expect "Enter passphrase"
+# send "$(lpass show --password ssh)\r"
+# expect eof
+# EOF
 
-# trap 'test -n "${SSH_AUTH_SOCK}" \
-#   && eval $(/usr/bin/ssh-agent -k)' 0
+if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+  eval $(ssh-agent)
+  ln -sf "${SSH_AUTH_SOCK}" ~/.ssh/ssh_auth_sock
+fi
 
-# if [ -z "${SSH_AUTH_SOCK}" ]; then
-#   eval $(ssh-agent -s)
-#   ssh-add
-# fi
+export SSH_AUTH_SOCK="${HOME}/.ssh/ssh_auth_sock"
+ssh-add -l > /dev/null || ssh-add
 
-# trap 'test -n "${SSH_AUTH_SOCK}" && eval $(/usr/bin/ssh-agent -k)' 0
-
+trap 'test -n "${SSH_AUTH_SOCK}" && eval $(ssh-agent -k)' 0
