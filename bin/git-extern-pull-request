@@ -7,7 +7,7 @@ cmd_pr() {
 
   [ ! -z "${assignee}" ] && hub pull-request -a "${assignee}"
   [ ! -z "${new}"      ] && hub pull-request "${flags}" -c -m "${message}"
-  [ ! -z "${list}"     ] && hub pr list --format="%sC%>(8)%I%Creset [%au] (%H) %t 1%n" ${flags}
+  [ ! -z "${list}"     ] && hub pr list --format="%sC%>(8)%I%Creset [%au] (%H) %t [%as %NC] %n" ${flags}
   [ ! -z "${pr_id}"    ] && hub pr checkout "${pr_id}" ${flags}
 }
 
