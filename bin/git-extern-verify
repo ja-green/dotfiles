@@ -10,6 +10,8 @@ die() {
 }
 
 verify_up_to_date() {
+  printf "info: verifying branch history..\n"
+
   git fetch \
     && cn="$(git log HEAD..origin/master --oneline | wc -l)"
 
@@ -19,6 +21,8 @@ verify_up_to_date() {
 }
 
 verify_branch() {
+  printf "info: verifying branch name format..\n"
+
   [ "${br}" = "master" ] \
     && die "cannot commit directly to 'master'\n"
 
@@ -26,9 +30,48 @@ verify_branch() {
     || die "branch name '${br}' is incorrectly formatted\n"
 }
 
+verify_compiler() {
+  printf "info: verifying code format and errors..\n"
+
+  scalac \
+    -deprecation \
+    -feature \
+    -unchecked \
+    -Xfatal-warnings \
+    -Xlint:adapted-args \
+    -Xlint:inaccessible \
+    -Xlint:infer-any \
+    -Xlint:missing-interpolator \
+    -Xlint:nullary-override \
+    -Xlint:nullary-unit \
+    -Xlint:package-object-classes \
+    -Xlint:private-shadow \
+    -Xlint:type-parameter-shadow \
+    -Xlint:unsound-match \
+    -Ywarn-dead-code \
+    -Ywarn-inaccessible \
+    -Ywarn-infer-any \
+    -Ywarn-nullary-override \
+    -Ywarn-nullary-unit \
+    -Ywarn-numeric-widen \
+    -Ywarn-value-discard \
+    -classpath $(sbt "export runtime:fullClasspath" | grep -v info) \
+    $(find ./app/ -type f -name *.scala) \
+    || die "compiler generated errors\n" 
+}
+
+verify_tests() {
+  printf "info: verifying tests..\n"
+
+  sbt test-quick it:test &>/dev/null \
+    || die "sbt tests do not pass\n"
+}
+
 main() {
   verify_branch
   verify_up_to_date
+  verify_compiler
+  verify_tests
 }
 
 main
