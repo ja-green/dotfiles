@@ -1,0 +1,4 @@
+#!/bin/bash
+
+git stash list &
+git status &
