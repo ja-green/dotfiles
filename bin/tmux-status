@@ -1,0 +1,50 @@
+#!/bin/bash
+
+cmd_time() {
+  date +"%I:%M"
+}
+
+cmd_date() {
+  date +"%d %b "
+}
+
+cmd_ssid() {
+  iwgetid -r
+
+  ifconfig tun0 &>/dev/null \
+    && printf " *"
+}
+
+cmd_batt() {
+  printf "$(cat /sys/class/power_supply/BAT0/capacity)%%"
+
+  [ "$(cat /sys/class/power_supply/BAT0/status)" = "Discharging" ] \
+    && printf " \u2193"
+}
+
+main() {
+  while [ -n "${1}" ]; do
+    case "${1}" in
+    --) shift; break;;
+    -*) case "${1}" in
+    -t|--time)    show_time=1 ;;
+    -d|--date)    show_date=1 ;;
+    -s|--ssid)    show_ssid=1 ;;
+    -b|--battery) show_batt=1 ;;
+    -*)           printf "unknown option '%s'\n" "${1}" ;;
+    esac ;;
+
+    *) printf "unknown option '%s'\n" "${1}" ;;
+
+    esac
+    shift
+
+  done
+
+  [ "${show_time}" = "1" ] && cmd_time
+  [ "${show_date}" = "1" ] && cmd_date
+  [ "${show_ssid}" = "1" ] && cmd_ssid
+  [ "${show_batt}" = "1" ] && cmd_batt
+}
+
+main ${@}
