@@ -5,14 +5,14 @@
   interactive        = auto
 
 [core]
-  editor             = nvim
+	editor             = nvim
   pager              = more
 
 [init]
   templatedir        = ~/Applications/personal-development-environment/src/github.com/ja-green/dotfiles/git/template.d
 
 [user]
-	email 		         = jack.green@digital.hmrc.gov.uk
+	email 		         = 16142871+ja-green@users.noreply.github.com
 	name 		           = ja-green
   signingkey         = 82E71E34
 
@@ -77,21 +77,24 @@
 
 [alias]
 	## builtin
+	ad 		             = add
 	br 		             = branch
 	ca 		             = commit --amend
 	cf 		             = commit --amend --no-edit
+	cs 		             = commit --gpg-sign
 	cm 		             = commit
-	cn 		             = config
+	cf 		             = config
 	df		             = diff
 	ds		             = describe
 	dt		             = difftool
 	ll 		             = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-	ls		             = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+  ls		             = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+  mg                 = merge
 	mb 		             = merge --no-ff --no-commit
 	mt		             = mergetool
 	rb                 = rebase
 	rs                 = reset
-	st 		             = status
+	sh 		             = stash
   ft                 = fetch
   pf                 = push --force-with-lease
   pl                 = pull
@@ -103,15 +106,19 @@
 	cl		             = extern-clone
 	co		             = extern-checkout
 	fd		             = extern-find
+	fr		             = extern-fetch-recent
 	in		             = extern-info # TODO
 	rq		             = extern-pull-request
 	sp		             = extern-sprint
 	sq		             = extern-squash # TODO
+  su                 = extern-standup
+	st		             = extern-status
 	vf		             = extern-verify
   bw                 = extern-browse
   dp                 = extern-deploy
+  li                 = extern-login
 
 	## shell
 	al                 = !sh -c \"git config -l | grep alias | cut -c 7-\"
 	hm                 = !sh -c \"git rev-parse --show-toplevel\"
-	un 	  	           = !sh -c \"git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}\"
+  un 	  	           = !sh -c \"git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}\"

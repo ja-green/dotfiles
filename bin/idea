@@ -1,0 +1,18 @@
+#!/bin/bash
+ 
+IDEA="$(locate idea.sh)"
+
+[ -d "${1}" ] \
+  && wd="$(ls -1d "${1}" | head -n1)" \
+  || wd="$(pwd)"
+
+if [ -f "${1}" ]; then
+  "${IDEA}" "${1}"
+else
+  if [ -d ".idea" ] || [ -f "*.ipr" ] || [ -f "pom.xml" ] || [ -d ".git" ]; then
+    "${IDEA}" "${wd}" &>/dev/null &
+  else 
+    "${IDEA}" &>/dev/null &
+  fi
+fi
+

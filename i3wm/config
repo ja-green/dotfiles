@@ -51,11 +51,11 @@ client.background	  $background
 # audio control
 bindsym XF86AudioRaiseVolume 	exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume 	exec amixer -q set Master 2dB- unmute
-bindsym XF86AudioMute 		exec amixer -q set Master toggle
+bindsym XF86AudioMute 	    	exec amixer -q set Master toggle
 
 # brightness control
-bindsym XF86MonBrightnessUp 	exec xbacklight -inc 20
-bindsym XF86MonBrightnessDown 	exec xbacklight -dec 20
+bindsym XF86MonBrightnessUp  	exec xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 
 # start a terminal
 bindsym $mod+Return 		exec urxvt -e tmux -2
@@ -83,15 +83,15 @@ bindsym $mod+F1			exec terminator --title tab1 -x vi /tmp/notes
 bindsym $mod+F2			exec terminator --title tab2 -x nmtui
 
 # take screenshot
-bindsym Print 			exec scrot    $screenshots/$(date +%s).png
-bindsym $mod+Print 		exec scrot -u $screenshots/$(date +%s).png
-bindsym $mod+Shift+Print 	exec import   $screenshots/$(date +%s).png
+bindsym Print            exec scrot    $screenshots/$(date +%s).png
+bindsym $mod+Print       exec scrot -u $screenshots/$(date +%s).png
+bindsym $mod+Shift+Print exec import   $screenshots/$(date +%s).png
 
 # change focus
-bindsym $mod+Left 		focus left
-bindsym $mod+Down 		focus down
+bindsym $mod+Left 	focus left
+bindsym $mod+Down 	focus down
 bindsym $mod+Up 		focus up
-bindsym $mod+Right 		focus right
+bindsym $mod+Right 	focus right
 
 # change focus
 bindsym $mod+h			focus left
@@ -110,6 +110,18 @@ bindsym $mod+Shift+Left 	move left
 bindsym $mod+Shift+Down 	move down
 bindsym $mod+Shift+Up 		move up
 bindsym $mod+Shift+Right 	move right
+
+# move workspace to display
+bindsym $mod+Alt+j 		move left
+bindsym $mod+Alt+k 		move down
+bindsym $mod+Alt+l 		move up
+bindsym $mod+Alt+semicolon 	move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Alt+Left 	move left
+bindsym $mod+Alt+Down 	move down
+bindsym $mod+Alt+Up 		move up
+bindsym $mod+Alt+Right 	move right
 
 # split in orientation
 bindsym $mod+z 			split h
@@ -181,19 +193,19 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        bindsym j 		resize shrink width 10 px or 10 ppt
-        bindsym k 		resize grow height 10 px or 10 ppt
-        bindsym l 		resize shrink height 10 px or 10 ppt
-        bindsym semicolon 	resize grow width 10 px or 10 ppt
+        bindsym j         resize shrink width 10 px or 10 ppt
+        bindsym k         resize grow height 10 px or 10 ppt
+        bindsym l 		    resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
 
-        bindsym Left 		resize shrink width 10 px or 10 ppt
-        bindsym Down 		resize grow height 10 px or 10 ppt
-        bindsym Up 		resize shrink height 10 px or 10 ppt
-        bindsym Right 		resize grow width 10 px or 10 ppt
+        bindsym Left 	    resize shrink width 10 px or 10 ppt
+        bindsym Down 	    resize grow height 10 px or 10 ppt
+        bindsym Up 	      resize shrink height 10 px or 10 ppt
+        bindsym Right 	  resize grow width 10 px or 10 ppt
 
-        bindsym Return 		mode "default"
-        bindsym Escape 		mode "default"
-        bindsym $mod+r 		mode "default"
+        bindsym Return 	  mode "default"
+        bindsym Escape 	  mode "default"
+        bindsym $mod+r 	  mode "default"
 }
 
 bindsym $mod+r mode "resize"

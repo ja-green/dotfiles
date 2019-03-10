@@ -35,7 +35,9 @@ treefetch() {
   echo -e "${tree_stats}\n"
 }
 
-neofetch --w3m --size 450px --colors 7 15 7 7 7 15 --block_range 0 15
+clear
+
+neofetch --source ${HOME}/Applications/personal-development-environment/src/github.com/ja-green/dotfiles/git-ascii --colors 7 15 7 7 7 15 --block_range 0 15
 
 quote_d="${HOME}/Applications/personal-development-environment/src/github.com/ja-green/dotfiles/quotes"
 

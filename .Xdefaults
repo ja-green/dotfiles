@@ -2,10 +2,10 @@
 !
 URxvt.termName:               xterm-256color
 
-*font:                        xft:inconsolata:pixelsize=20
-*boldFont:                    xft:inconsolata:pixelsize=20
-URxvt.font:                   xft:inconsolata:pixelsize=20
-URxvt.boldFont:               xft:inconsolata:pixelsize=20
+*font:                        xft:inconsolata:pixelsize=20:minspace=false,xft:siji:pixelsize=20:minspace=false
+*boldFont:                    xft:inconsolata:pixelsize=20:minspace=false,xft:siji:pixelsize=20:minspace=false
+URxvt.font:                   xft:inconsolata:pixelsize=20:minspace=false,xft:siji:pixelsize=20:minspace=false
+URxvt.boldFont:               xft:inconsolata:pixelsize=20:minspace=false,xft:siji:pixelsize=20:minspace=false
 URxvt.letterSpace:            -1
 
 URxvt.perl-ext-common:        default,matcher,clipboard,font-size

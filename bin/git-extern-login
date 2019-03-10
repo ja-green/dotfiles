@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+lc_host="http://localhost:9949"
+sg_host=""
+pd_host=""
+qa_host=""
+dv_host=""
+
+ls_uri="auth-login-stub/gg-sign-in"
+
+die() {
+  printf "fatal: ${1}\n" "${2}" >&2
+
+  exit 1
+}
+
+main() {
+  git web--browse "${lc_host}/${ls_uri}"
+}
+
+main ${@}

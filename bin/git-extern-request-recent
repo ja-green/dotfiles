@@ -1,0 +1,21 @@
+#!/bin/bash
+
+for repo in $(fasd -d | awk '{ print $2 }' | tac | head -n "${1:-30}"); do
+  cd "${repo}"
+
+  if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]; then
+    toplevel="$(git rev-parse --show-toplevel)"
+
+    printf '%s\n' "${visited[@]}" | grep -qw "${toplevel}" \
+      && continue \
+      || visited+=("${toplevel}")
+
+    [ "$(git rq -l 2>/dev/null | wc -l)" = "0" ] \
+      && continue
+
+    printf "%s\n" "${toplevel##*/}"
+    git rq -l 2>/dev/null
+  fi
+done
+
+exit 0

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+declare req_color="${1}"
+
+to_hex() {
+  printf "#%02X%02X%02X" "${1}" "${2}" "${3}"
+}
+
+r=$(printf $((RANDOM % 256)))
+g=$(printf $((RANDOM % 256)))
+b=$(printf $((RANDOM % 256)))
+
+r=$(printf $(((r + 255) / 2)))
+g=$(printf $(((g + 255) / 2)))
+b=$(printf $(((b + 255) / 2)))
+
+[[ "${req_color}" =~ ^[0-9a-fA-F]{6}$ ]] \
+  && req_color="#${req_color}"
+
+[ -z "${req_color}" ] \
+  && bg_color="$(to_hex ${r} ${g} ${b})" \
+  || bg_color="${req_color}"
+
+convert -size 3840x2160 canvas:"${bg_color}" /tmp/bg.png
+feh --bg-scale /tmp/bg.png

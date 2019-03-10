@@ -1,0 +1,31 @@
+{
+   "description": "",
+   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDGWIVGBsPOGlTRWaIOEBYzJwkw8KFl8WctDQ0cJBk0Shl0Ip7xEWVM7CvN3EGs2jL8/s+q7n1GdJxaf0XcucjtJtgVeyBBuLV06xn6EUnhEISs8bri8IS9L/dmAhmLdBQtGyrh/fR7a5JHHCFrm8wjB/HiA6myzQGTqPZeJNG8cwIDAQAB",
+   "manifest_version": 2,
+   "name": "arc-dark",
+   "theme": {
+      "colors": {
+         "bookmark_text": [ 218, 218, 218 ],
+         "button_background": [ 124, 129, 140, 0.9 ],
+         "frame": [ 64, 69, 82 ],
+         "ntp_background": [ 64, 69, 82 ],
+         "ntp_text": [ 218, 218, 218 ],
+         "tab_background_text": [ 218, 218, 218 ],
+         "tab_text": [ 218, 218, 218 ],
+         "toolbar": [ 64, 69, 82 ]
+      },
+      "images": {
+         "theme_frame": "images/theme_frame.png",
+         "theme_tab_background": "images/theme_tab_background.png",
+         "theme_toolbar": "images/theme_toolbar.png"
+      },
+      "properties": {
+         "ntp_background_alignment": "bottom",
+         "ntp_background_repeat": "no-repeat"
+      },
+      "tints": {
+         "buttons": [ 0, 0, 0.85 ]
+      }
+   },
+   "version": "1.0"
+}

@@ -1,0 +1,130 @@
+# taskwarrior program configuration file.
+#
+# for more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# here is an example of entries that use the default, override and blank values
+#   variable=foo   -- by specifying a value, this overrides the default
+#   variable=      -- by specifying no value, this means no default
+#   #variable=foo  -- by commenting out the line, or deleting it, this uses the default
+
+# use the command 'task show' to see all defaults and overrides
+
+# color theme (uncomment one to use)
+#include /usr/share/taskwarrior/light-16.theme
+#include /usr/share/taskwarrior/light-256.theme
+#include /usr/share/taskwarrior/dark-16.theme
+#include /usr/share/taskwarrior/dark-256.theme
+#include /usr/share/taskwarrior/dark-red-256.theme
+#include /usr/share/taskwarrior/dark-green-256.theme
+#include /usr/share/taskwarrior/dark-blue-256.theme
+#include /usr/share/taskwarrior/dark-violets-256.theme
+#include /usr/share/taskwarrior/dark-yellow-green.theme
+#include /usr/share/taskwarrior/dark-gray-256.theme
+#include /usr/share/taskwarrior/dark-gray-blue-256.theme
+#include /usr/share/taskwarrior/solarized-dark-256.theme
+#include /usr/share/taskwarrior/solarized-light-256.theme
+include /usr/share/taskwarrior/no-color.theme
+
+# runtime
+data.location                    = /home/jgreen/.task
+
+editor                           = nvim
+
+# color
+color.active                     = green
+color.alternate                  = none
+color.blocked                    = cyan
+color.blocking                   = none
+color.burndown.done              = black on green
+color.burndown.pending           = yellow
+color.burndown.started           = green
+color.calendar.due               = black on yellow
+color.calendar.due.today         = black on red
+color.calendar.holiday           = on blue
+color.calendar.overdue           = black on red
+color.calendar.today             = black on cyan
+color.calendar.weekend           = none
+color.calendar.weeknumber        = blue
+color.completed                  = black on green
+color.debug                      = black on bright yellow
+color.deleted                    = black on red
+color.due                        = none
+color.due.today                  = none
+color.error                      = red
+color.footnote                   = blue
+color.header                     = blue
+color.history.add                = black on yellow
+color.history.delete             = black on red
+color.history.done               = black on green
+color.label                      = none
+color.label.sort                 = none
+color.overdue                    = red
+color.project.none               = none
+color.recurring                  = none
+color.scheduled                  = none
+color.summary.background         = none
+color.summary.bar                = none
+color.sync.added                 = green
+color.sync.changed               = yellow
+color.sync.rejected              = red
+color.tag.next                   = none
+color.tag.none                   = none
+color.tagged                     = none
+color.uda.priority.H             = none
+color.uda.priority.M             = none
+color.uda.priority.L             = none
+color.undo.after                 = none
+color.undo.before                = none
+color.until                      = none
+color.warning                    = yellow
+
+# taskserver
+taskd.certificate                = /home/jgreen/.task/certs/private.certificate.pem
+taskd.key                        = /home/jgreen/.task/certs/private.key.pem
+taskd.ca                         = /home/jgreen/.task/certs/ca.cert.pem
+taskd.server                     = taskwarrior.inthe.am:53589
+taskd.credentials                = inthe_am/greenjagsta/b14e39d5-d9a8-4b10-8daf-1e2e23a3d74b
+taskd.trust                      = ignore hostname
+
+# calendar
+weekstart                        = monday
+
+calendar.holidays                = full
+
+# coefficient
+urgency.uda.pts.0.5.coefficient  = 0.25
+urgency.uda.pts.1.coefficient    = 0.5
+urgency.uda.pts.2.coefficient    = 1.0
+urgency.uda.pts.3.coefficient    = 1.5
+urgency.uda.pts.5.coefficient    = 2.5
+urgency.uda.pts.8.coefficient    = 4.0
+urgency.uda.pts.13.coefficient   = 8.0
+
+urgency.active.coefficient       = 1.0
+
+# uda
+uda.pts.type                     = string
+uda.pts.label                    = points
+uda.pts.values                   = 0.5,1,2,3,5,8,13
+
+# context
+context.work                     = +@work or +@computer or +@phone or +@online
+context.home                     = +@home or +@phone or +@online not +@work
+
+# report
+report.rev.description           = inbox
+report.rev.columns               = id,description
+report.rev.filter                = status:pending limit:page (+in)
+report.rev.labels                = id,description
+
+report.next.description          = most urgent tasks
+report.next.columns              = id,start.age,entry.age,urgency,depends,priority,project,tags,recur,scheduled.countdown,due.remaining,until.remaining,description,pts
+report.next.filter               = status:pending and +next
+report.next.labels               = id,active,age,urgency,deps,priority,project,tag,recur,s,due,until,description,points
+report.next.sort                 = urgency-,pts-,priority-
+
+# alias
+alias.in                         = add +in
+alias.ctx                        = context
+context=work

@@ -1,15 +1,5 @@
 # function definitions
 
-# limit locate to the current working directory
-function locatedir { 
-    locate -i $@ | grep `pwd`
-}
-
-# limit cat to the current working directory
-function catdir {
-    cat $(locatedir $@)
-}
-
 # allow the use of cat with unknown file locations
 function cat {
     [ -f "${1}" ] && command cat "${1}" || command cat "$(fasd -f ${1})"
@@ -60,6 +50,10 @@ function title {
 
 function sc {
     screen -dm bash -c '"${@}"; exit;'
+}
+
+function profile {
+    PS4='+ $(date "+%s.%N ($LINENO) ")' bash -x "${@}"
 }
 
 function ensime {
