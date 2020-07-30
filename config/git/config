@@ -1,0 +1,109 @@
+## core
+
+[color]
+    ui                 = auto
+    interactive        = auto
+
+[core]
+    editor             = nvim
+    pager              = more
+
+[user]
+    name               = ja-green
+
+## command
+
+[diff]
+    mnemonicprefix     = true
+
+[merge]
+    summary            = true
+    tool               = nvim
+    conflictstyle      = diff3
+
+[pull]
+    default            = current
+    rebase             = true
+
+[push]
+    default            = current
+
+[status]
+    relativepaths      = false
+    showstash          = true
+    short              = true
+    branch             = false
+    showuntrackedfiles = all
+
+## preferences
+
+[browser "qt"]
+    cmd                = qutebrowser
+
+[commit]
+    gpgsign            = false
+
+[fetch]
+    fsckobjects        = true
+
+[mergetool "nvim"]
+    cmd                = nvim -f -c \"Gdiff master\" \"$MERGED\"
+
+[receive]
+    fsckobjects        = true
+
+[rerere]
+    enabled            = true
+    autoupdate         = true
+
+[submodule]
+    fetchjobs          = 8
+
+[transfer]
+    fsckobjects        = true
+
+[web]
+    browser            = qutebrowser
+
+[worktree]
+    guessremote        = true
+
+## alias
+
+[alias]
+## builtin
+    ad                 = add
+    br                 = branch
+    ca                 = commit --amend
+    cf                 = commit --amend --no-edit
+    cs                 = commit --gpg-sign
+    cm                 = commit
+    cf                 = config
+    df                 = diff
+    ds                 = describe
+    dt                 = difftool
+    ll                 = log --pretty = format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    ls                 = log --pretty = format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+    mg                 = merge
+    mb                 = merge --no-ff --no-commit
+    mt                 = mergetool
+    rb                 = rebase
+    st                 = status --short
+    rs                 = reset
+    sh                 = stash
+    ft                 = fetch
+    pf                 = push --force-with-lease
+    pl                 = pull
+    pu                 = push
+    sy                 = sync
+
+## external
+    ag                 = extern-grep
+    cl                 = extern-clone
+    co                 = extern-checkout
+    fd                 = extern-find
+
+## shell
+    al                 = !sh -c \"git config -l | grep alias | cut -c 7-\"
+    hm                 = !sh -c \"git rev-parse --show-toplevel\"
+    un                 = !sh -c \"git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}\"

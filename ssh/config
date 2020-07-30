@@ -1,7 +1,0 @@
-Host *
- ControlMaster  auto
- ControlPath    ~/.ssh/sockets/%r@%h-%p
- ControlPersist yes
-
-Host github.com
- IdentityFile   ~/.ssh/id_rsa

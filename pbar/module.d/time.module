@@ -1,8 +1,0 @@
-type                    = internal/date
-time                    = %H:%M
-time-alt                = %H:%M:%S
-label                   = %time%
-format-padding          = 3
-format-background       = ${colors.color4}
-format-foreground       = ${colors.background}
-

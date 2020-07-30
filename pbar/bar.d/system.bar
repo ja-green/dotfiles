@@ -1,9 +1,0 @@
-inherit                 = bar/main
-width                   = 250
-height                  = 40
-offset-x                = 680
-offset-y                = 35
-
-foreground              = ${colors.color7}
-
-modules-left            = cpu ram

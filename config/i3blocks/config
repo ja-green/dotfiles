@@ -1,0 +1,70 @@
+# i3blocks config file
+#
+# please see man i3blocks for a complete reference
+# the man page is also hosted at http://vivien.github.io/i3blocks
+#
+# list of valid properties:
+# - align
+# - color
+# - command
+# - full_text
+# - instance
+# - interval
+# - label
+# - min_width
+# - name
+# - separator
+# - separator_block_width
+# - short_text
+# - signal
+# - urgent
+
+full_text=|
+align=center
+color=#dadada
+separator=false
+separator_block_width=7
+
+[ip]
+xivy_iface=tun0
+xivy_iface_fallback=wlp2s0
+command=xivy ip
+interval=10
+
+[iface]
+xivy_iface=tun0
+xivy_iface_fallback=wlp2s0
+command=xivy iface
+interval=10
+
+[ssid]
+xivy_prefix=(
+xivy_postfix=)
+command=xivy ssid
+interval=10
+
+[separator]
+
+[battery]
+command=xivy battery-icon
+interval=2
+
+[separator]
+
+[cpu usage]
+xivy_prefix=CPU 
+command=xivy cpu-usage
+interval=2
+
+[separator]
+
+[memory usage]
+xivy_prefix=MEM 
+command=xivy memory-used-percent
+interval=2
+
+[separator]
+
+[date]
+command=xivy date
+interval=1

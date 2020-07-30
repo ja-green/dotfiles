@@ -1,8 +1,0 @@
-type                    = internal/cpu
-interval                = 0.5
-format                  = <label>
-label                   =  %percentage%
-format-padding          = 3  
-format-background       = ${colors.color0}
-format-foreground       = ${colors.color5}
-

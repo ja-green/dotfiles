@@ -1,8 +1,0 @@
-type                    = internal/memory
-interval                = 0.5
-format                  = <label>
-label                   =   %percentage_used%
-format-padding          = 3
-format-background       = ${colors.color5}
-format-foreground       = ${colors.color0}
-

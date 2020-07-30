@@ -1,7 +1,0 @@
-inherit                 = bar/main                                                                                               
-width                   = 200
-height                  = 40
-offset-x                = 3610
-offset-y                = 35
-
-modules-right           = menu

@@ -1,0 +1,371 @@
+# i3-gaps config file
+#
+# please see http://i3wm.org/docs/userguide.html for a complete reference
+
+# meta key mappings
+# alt key is Mod1, and windows key is Mod4
+
+set $mod Mod4
+set $alt Mod1
+
+# workspace names
+
+set $ws1  "1"
+set $ws2  "2"
+set $ws3  "3"
+set $ws4  "4"
+set $ws5  "5"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8"
+set $ws9  "9"
+set $ws10 "10"
+set $ws11 "11"
+set $ws12 "12"
+set $ws13 "13"
+set $ws14 "14"
+set $ws15 "15"
+set $ws16 "16"
+set $ws17 "17"
+set $ws18 "18"
+set $ws19 "19"
+
+# launcher dialogs
+
+## program launcher
+bindsym $mod+d exec dmenu_run \
+    -nb '#404552' \
+    -nf '#dadada' \
+    -sb '#8ba870' \
+    -sf '#000000' \
+    -fn 'Inconsolata Nerd Font Mono:pixelsize=12' \
+    -p  '> ' \
+    -b -i
+
+## specific programs
+bindsym $mod+Return       exec termite
+bindsym $mod+Shift+Return exec ${BROWSER:-qutebrowser}
+
+## volume control
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute     exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# window and workspace navigation
+
+## navigate relative parent
+bindsym $mod+a focus parent
+
+## navigate relative child
+bindsym $mod+Shift+a focus child
+
+## navigate relative window
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+## navigate relative window
+bindsym $mod+h     focus left
+bindsym $mod+j     focus down
+bindsym $mod+k     focus up
+bindsym $mod+l     focus right
+
+## navigate workspaces 1 - 10
+bindsym $mod+1      workspace number $ws1
+bindsym $mod+2      workspace number $ws2
+bindsym $mod+3      workspace number $ws3
+bindsym $mod+4      workspace number $ws4
+bindsym $mod+5      workspace number $ws5
+bindsym $mod+6      workspace number $ws6
+bindsym $mod+7      workspace number $ws7
+bindsym $mod+8      workspace number $ws8
+bindsym $mod+9      workspace number $ws9
+bindsym $mod+10     workspace number $ws10
+## navigate workspace 11 - 19
+bindsym $mod+Ctrl+1 workspace number $ws11
+bindsym $mod+Ctrl+2 workspace number $ws12
+bindsym $mod+Ctrl+3 workspace number $ws13
+bindsym $mod+Ctrl+4 workspace number $ws14
+bindsym $mod+Ctrl+5 workspace number $ws15
+bindsym $mod+Ctrl+6 workspace number $ws16
+bindsym $mod+Ctrl+7 workspace number $ws17
+bindsym $mod+Ctrl+8 workspace number $ws18
+bindsym $mod+Ctrl+9 workspace number $ws19
+
+## navigate workspace
+bindsym $mod+Tab        workspace next
+bindsym $mod+$alt+Right workspace next
+bindsym $mod+Shift+Tab  workspace prev
+bindsym $mod+$alt+Left  workspace prev
+
+# window and workspace configuration
+
+## modify window position
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
+
+## modify window position
+bindsym $mod+Shift+h     move left
+bindsym $mod+Shift+j     move down
+bindsym $mod+Shift+k     move up
+bindsym $mod+Shift+l     move right
+
+## modify containing workspace
+bindsym $mod+Ctrl+Shift+Left  move workspace to output left
+bindsym $mod+Ctrl+Shift+Down  move workspace to output down
+bindsym $mod+Ctrl+Shift+Up    move workspace to output up
+bindsym $mod+Ctrl+Shift+Right move workspace to output right
+
+## modify containing workspace
+bindsym $mod+Ctrl+Shift+h     move workspace to output left
+bindsym $mod+Ctrl+Shift+j     move workspace to output down
+bindsym $mod+Ctrl+Shift+k     move workspace to output up
+bindsym $mod+Ctrl+Shift+l     move workspace to output right
+
+## modify vertical window orientation
+bindsym $mod+v split vertical
+
+## modify horizontal window orientation
+bindsym $mod+z split horizontal
+
+## modify window fullscreen toggle
+bindsym $mod+f fullscreen toggle
+
+## modify window floating toggle
+bindsym $mod+Shift+f floating toggle
+
+## modify window layout mode
+bindsym $mod+t layout toggle tabbed splith splitv
+
+## modify move window to workspace 1 - 10
+bindsym $mod+Shift+1      move container to workspace number $ws1
+bindsym $mod+Shift+2      move container to workspace number $ws2
+bindsym $mod+Shift+3      move container to workspace number $ws3
+bindsym $mod+Shift+4      move container to workspace number $ws4
+bindsym $mod+Shift+5      move container to workspace number $ws5
+bindsym $mod+Shift+6      move container to workspace number $ws6
+bindsym $mod+Shift+7      move container to workspace number $ws7
+bindsym $mod+Shift+8      move container to workspace number $ws8
+bindsym $mod+Shift+9      move container to workspace number $ws9
+bindsym $mod+Shift+10     move container to workspace number $ws10
+## modify move window to workspace 11 - 19
+bindsym $mod+Shift+Ctrl+1 move container to workspace number $ws11
+bindsym $mod+Shift+Ctrl+2 move container to workspace number $ws12
+bindsym $mod+Shift+Ctrl+3 move container to workspace number $ws13
+bindsym $mod+Shift+Ctrl+4 move container to workspace number $ws14
+bindsym $mod+Shift+Ctrl+5 move container to workspace number $ws15
+bindsym $mod+Shift+Ctrl+6 move container to workspace number $ws16
+bindsym $mod+Shift+Ctrl+7 move container to workspace number $ws17
+bindsym $mod+Shift+Ctrl+8 move container to workspace number $ws18
+bindsym $mod+Shift+Ctrl+9 move container to workspace number $ws19
+
+# move focused container to workspace, move to workspace
+## modify carry window to workspace 1 - 10
+bindsym $mod+$alt+1      move container to workspace number $ws1;  workspace number $ws1
+bindsym $mod+$alt+2      move container to workspace number $ws2;  workspace number $ws2
+bindsym $mod+$alt+3      move container to workspace number $ws3;  workspace number $ws3
+bindsym $mod+$alt+4      move container to workspace number $ws4;  workspace number $ws4
+bindsym $mod+$alt+5      move container to workspace number $ws5;  workspace number $ws5
+bindsym $mod+$alt+6      move container to workspace number $ws6;  workspace number $ws6
+bindsym $mod+$alt+7      move container to workspace number $ws7;  workspace number $ws7
+bindsym $mod+$alt+8      move container to workspace number $ws8;  workspace number $ws8
+bindsym $mod+$alt+9      move container to workspace number $ws9;  workspace number $ws9
+bindsym $mod+$alt+10     move container to workspace number $ws10; workspace number $ws10
+## modify carry window to workspace 11 - 19
+bindsym $mod+$alt+Ctrl+1 move container to workspace number $ws11; workspace number $ws11
+bindsym $mod+$alt+Ctrl+2 move container to workspace number $ws12; workspace number $ws12
+bindsym $mod+$alt+Ctrl+3 move container to workspace number $ws13; workspace number $ws13
+bindsym $mod+$alt+Ctrl+4 move container to workspace number $ws14; workspace number $ws14
+bindsym $mod+$alt+Ctrl+5 move container to workspace number $ws15; workspace number $ws15
+bindsym $mod+$alt+Ctrl+6 move container to workspace number $ws16; workspace number $ws16
+bindsym $mod+$alt+Ctrl+7 move container to workspace number $ws17; workspace number $ws17
+bindsym $mod+$alt+Ctrl+8 move container to workspace number $ws18; workspace number $ws18
+bindsym $mod+$alt+Ctrl+9 move container to workspace number $ws19; workspace number $ws19
+
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# session management
+
+## session quit process
+bindsym $mod+q [con_id="__focused__"] kill
+
+## session reload i3 config
+bindsym $mod+Shift+c reload
+
+## session restart i3
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# toggle bar visibility
+## modify // toggle bar
+bindsym $mod+i bar mode toggle
+
+workspace_auto_back_and_forth no
+
+# modes
+
+## resize mode
+set $mode_resize resize: arrow, shift + arrow
+
+bindsym $mod+r mode "$mode_resize"
+
+mode "$mode_resize" {
+    bindsym Left        resize shrink width 6 px or 6 ppt
+    bindsym Down        resize grow height 6 px or 6 ppt
+    bindsym Up          resize shrink height 6 px or 6 ppt
+    bindsym Right       resize grow width 6 px or 6 ppt
+
+    bindsym Shift+Left  resize shrink width 12 px or 12 ppt
+    bindsym Shift+Down  resize grow height 12 px or 12 ppt
+    bindsym Shift+Up    resize shrink height 12 px or 12 ppt
+    bindsym Shift+Right resize grow width 12 px or 12 ppt
+
+    bindsym h           resize shrink width 6 px or 6 ppt
+    bindsym k           resize grow height 6 px or 6 ppt
+    bindsym j           resize shrink height 6 px or 6 ppt
+    bindsym l           resize grow width 6 px or 6 ppt
+
+    bindsym Shift+h     resize shrink width 12 px or 12 ppt
+    bindsym Shift+k     resize grow height 12 px or 12 ppt
+    bindsym Shift+j     resize shrink height 12 px or 12 ppt
+    bindsym Shift+l     resize grow width 12 px or 12 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+
+## gaps mode
+set $mode_gaps       gaps: (o) outer, (i) inner
+set $mode_gaps_outer outer Gaps: +|-|0 (local), shift + +|-|0 (global)
+set $mode_gaps_inner inner Gaps: +|-|0 (local), shift + +|-|0 (global)
+
+bindsym $mod+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+    bindsym o      mode "$mode_gaps_outer"
+    bindsym i      mode "$mode_gaps_inner"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+    bindsym plus        gaps inner current plus 5
+    bindsym minus       gaps inner current minus 5
+    bindsym 0           gaps inner current set 0
+
+    bindsym Shift+plus  gaps inner all plus 5
+    bindsym Shift+minus gaps inner all minus 5
+    bindsym Shift+0     gaps inner all set 0
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_outer" {
+    bindsym plus        gaps outer current plus 5
+    bindsym minus       gaps outer current minus 5
+    bindsym 0           gaps outer current set 0
+
+    bindsym Shift+plus  gaps outer all plus 5
+    bindsym Shift+minus gaps outer all minus 5
+    bindsym Shift+0     gaps outer all set 0
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# appearance and behavior
+
+# disable titlebar
+default_border pixel 0
+default_floating_border pixel 0
+
+## remove window borders
+for_window [class="^.*"] border pixel 0
+
+# specify the distance between windows in pixels
+gaps inner 15
+gaps outer 0
+
+# enable popup during fullscreen
+popup_during_fullscreen smart
+
+# window focus follows your mouse movements as the mouse crosses window borders
+focus_follows_mouse no
+
+# colors and fonts
+
+set $color_r  #ff0000
+set $color_g  #00ff00
+set $color_b  #0000ff
+set $color_wh #ffffff
+set $color_bl #000000
+
+set_from_resource $color_bg i3wm.background
+set_from_resource $color_fg i3wm.foreground
+
+set_from_resource $color0   i3wm.color0
+set_from_resource $color1   i3wm.color1
+set_from_resource $color2   i3wm.color2
+set_from_resource $color3   i3wm.color3
+set_from_resource $color4   i3wm.color4
+set_from_resource $color5   i3wm.color5
+set_from_resource $color6   i3wm.color6
+set_from_resource $color7   i3wm.color7
+set_from_resource $color8   i3wm.color8
+set_from_resource $color9   i3wm.color9
+set_from_resource $color10  i3wm.color10
+set_from_resource $color11  i3wm.color11
+set_from_resource $color12  i3wm.color12
+set_from_resource $color13  i3wm.color13
+set_from_resource $color14  i3wm.color14
+set_from_resource $color15  i3wm.color15
+
+# window border color
+# class                 border     backgr   text      indicator child_border
+client.focused          $color_bg $color_bg $color_bg $color_bg $color_bg
+client.focused_inactive $color_bg $color_bg $color_bg $color_bg $color_bg
+client.unfocused        $color_bg $color_bg $color_bg $color_bg $color_bg
+client.urgent           $color_bg $color_bg $color_bg $color_bg $color_bg
+
+client.background       $color_bg
+
+# sets i3 font for dialogs
+set $font xft:Inconsolata Nerd Font Mono Medium 9
+font $font
+
+# i3 bar
+
+bar {
+  position bottom
+  font $font
+  separator_symbol |
+  status_command i3blocks
+  tray_output none
+  strip_workspace_numbers no
+  height 14
+
+  colors {
+      background $color_bg
+      statusline $color_fg
+      separator  $color_fg
+
+      #                  border    backgr    text
+      focused_workspace  $color_bg $color2   $color_bl
+      active_workspace   $color_bg $color_bg $color_fg
+      inactive_workspace $color_bg $color_bg $color_fg
+      urgent_workspace   $color_bg $color11  $color_bl
+  }
+}
+
+# external programs launched with i3
+
+exec --no-startup-id chbg 3a3f4d

@@ -1,0 +1,33 @@
+# dotfiles config file
+
+- defaults:
+    link:
+        create: true
+        force:  true
+        glob:   true
+        relink: true
+
+- clean: ['~']
+
+- clean:
+    ~/:
+        force: true
+    ~/.config:
+        recursive: true
+
+- link:
+    ~/.Xresources:                   config/x/.Xresources
+    ~/.xinitrc:                      config/x/.xinitrc
+    ~/.zshrc:                        config/zsh/.zshrc
+    ~/.bashrc:                       config/bash/.bashrc
+    ~/.config/:                      config/xdg/*
+    ~/.config/shell/.bashrc:         config/bash/.bashrc
+    ~/.config/shell/.zshrc:          config/zsh/.zshrc
+    ~/.config/git/config:            config/git/config
+    ~/.config/i3/config:             config/i3wm/config
+    ~/.config/i3blocks/config:       config/i3blocks/config
+    ~/.config/nvim/:                 config/nvim/*
+    ~/.config/qutebrowser/config.py: config/qutebrowser/config.py
+    ~/.config/termite/config:        config/termite/config
+    ~/.config/radare2/radare2rc:     config/radare2/radare2rc
+    ~/.mitmproxy/config.yaml:        config/mitmproxy/config.yaml
