@@ -5,16 +5,16 @@ set statusline=
 
 " highlights {{
 hi ModeNormal        guifg=#000000 guibg=#657596 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi ModeNormalOP      guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
+hi ModeNormalOP      guifg=#000000 guibg=#657596 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi ModeVisual        guifg=#000000 guibg=#5e8d87 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi ModeVisualLine    guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
+hi ModeVisualLine    guifg=#000000 guibg=#8abeb7 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi ModeVisualBlock   guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi ModeSelect        guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi ModeSelectLine    guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi ModeSelectBlock   guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi ModeInsert        guifg=#000000 guibg=#8ba870 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi ModeReplace       guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi ModeVisualReplace guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
+hi ModeReplace       guifg=#000000 guibg=#966575 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
+hi ModeVisualReplace guifg=#000000 guibg=#cf8ba2 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi ModeCommand       guifg=#000000 guibg=#968665 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi ModeVimEx         guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi ModeEx            guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
@@ -22,7 +22,7 @@ hi ModePrompt        guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NON
 hi ModeMore          guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi ModeConfirm       guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi ModeShell         guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi ModeTerm          guifg=#dadada guibg=#000000 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
+hi ModeTerm          guifg=#000000 guibg=#966894 guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 " }}
 
 " functions {{
@@ -47,31 +47,34 @@ function! GitInfo()
   endif
 endfunction
 " }}
-"
+
 " statusline {{
-set statusline+=\ %n                                                          " buffer number
-set statusline+=%{GitInfo()}                                                  " current git ref
-" set statusline+=%{GitStatus()}                                              " git diff of current file
-set statusline+=\ │                                                           " separator
-set statusline+=\ %<%t%m%r%h%w                                                " file name, modified, readonly, helpfile, preview
-set statusline+=\ │                                                           " separator
-set statusline+=\ %Y                                                          " file type
-set statusline+=\ │                                                           " separator
-set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}                             " encoding
-set statusline+=\ (%{&ff})                                                    " fileFormat (dos / unix)
-set statusline+=\ │                                                           " separator
-set statusline+=\ %b,0x%B                                                     " current char
+" set statusline+=\ %n                                                        " buffer number
+" set statusline+=%{GitInfo()}                                                " current git ref
+" set statusline+=\ │                                                         " separator
+" set statusline+=\ %<%t%m%r%h%w                                              " file name, modified, readonly, helpfile, preview
+" set statusline+=\ │                                                         " separator
+" set statusline+=\ %Y                                                        " file type
+" set statusline+=\ │                                                         " separator
+" set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}                           " encoding
+" set statusline+=\ (%{&ff})                                                  " fileFormat (dos / unix)
+" set statusline+=\ │                                                         " separator
+" set statusline+=\ %b,0x%B                                                   " current char
+
+set statusline+=%n:%{expand('%:t')==#''?'none':expand('%:t')}%M               " buffer and filename
+set statusline+=\ %{&filetype==#''?'none':&filetype}                          " filetype
+set statusline+=\ %b:0x%02B                                                   " current char
 
 set statusline+=%=                                                            " right hand side
 
-set statusline+=%02l/%L\ (%1p%%)\                                             " line number / total lines, percentage of file
+set statusline+=%l:%c/%L\ (%1p%%)\                                            " line number / total lines, percentage of file
 set statusline+=%#ModeNormal#%{(mode()==#'n')?'\ \ NORMAL\ \ ':''}            " normal mode indicator
 set statusline+=%#ModeVisual#%{(mode()==#'v')?'\ \ VISUAL\ \ ':''}            " visual mode indicator
 set statusline+=%#ModeVisualLine#%{(mode()==#'V')?'\ \ V·LINE\ \ ':''}        " visual line mode indicator
-set statusline+=%#ModeVisualBlock#%{(mode()==#'')?'\ \ V·BLOCK\ \ ':''}      " visual block mode indicator
+set statusline+=%#ModeVisualBlock#%{(mode()==#'')?'\ \ V·BLOCK\ \ ':''}   " visual block mode indicator
 set statusline+=%#ModeSelect#%{(mode()==#'s')?'\ \ SELECT\ \ ':''}            " select mode indicator
 set statusline+=%#ModeSelectLine#%{(mode()==#'S')?'\ \ S·LINE\ \ ':''}        " select line mode indicator
-set statusline+=%#ModeSelectBlock#%{(mode()==#'')?'\ \ S·BLOCK\ \ ':''}      " select block mode indicator
+set statusline+=%#ModeSelectBlock#%{(mode()==#'')?'\ \ S·BLOCK\ \ ':''}   " select block mode indicator
 set statusline+=%#ModeInsert#%{(mode()==#'i')?'\ \ INSERT\ \ ':''}            " insert mode indicator
 set statusline+=%#ModeReplace#%{(mode()==#'R')?'\ \ REPLACE\ \ ':''}          " replace mode indicator
 set statusline+=%#ModeVisualReplace#%{(mode()==#'Rv')?'\ \ V·REPLACE\ \ ':''} " visual replace mode indicator

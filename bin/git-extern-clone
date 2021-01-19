@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 cmd_cl() {
   git clone ${flag} "git@github.com:${repo}.git" \
@@ -9,7 +9,7 @@ cmd_cl() {
   res_amt="$(echo "${result}" | grep -c '"full_name":')"
 
   for ((i=0; i<${res_amt}; i++ )); do
-    suggestion+=("$(echo "${result}" | python -c "import sys, json; print json.load(sys.stdin)['items'][${i}]['full_name']" &)")
+      suggestion+=("$(echo "${result}" | python3 -c "import sys, json; print(json.load(sys.stdin)['items'][${i}]['full_name'])" &)")
   done
 
   wait
@@ -30,7 +30,7 @@ main() {
   while [ -n "${1}" ]; do
     case "${1}" in
     --) shift; break;;
-    -h|--help) git clone -h; exit 1 ;;
+    -h|--help) git clone --help; exit 1 ;;
     -*) flag+="${1} " ;;
     *)  repo="${1}" ;;
 

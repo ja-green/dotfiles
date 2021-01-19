@@ -44,6 +44,7 @@ export HISTFILE="${HOME}/.config/shell/.histfile"
 export HISTSIZE=1000
 export SAVEHIST=1000
 export LESSHISTFILE="/dev/null"
+export TASKRC="${HOME}/.config/task/.taskrc"
 
 export EDITOR='nvim'
 export PAGER='less'
@@ -57,12 +58,13 @@ alias xo='xclip -o -selection clipboard'
 alias ll="ls -laF --color=always --group-directories-first"
 alias vi="nvim"
 alias qt="qutebrowser"
+alias nc='ncat'
 alias ..="cd ../"
 alias ...="cd ../../"
 alias cls="clear"
 alias mkf="touch"
 alias mkd="mkdir -p"
-alias sspl="searchsploit"
+alias sspl="searchsploit --id"
 alias reload="source ${HOME}/.bashrc"
 
 # motd

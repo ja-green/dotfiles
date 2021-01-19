@@ -3,6 +3,8 @@
 " plugins
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'djoshea/vim-autoread'
@@ -20,7 +22,7 @@ colorscheme custom
 
 filetype plugin indent on
 
-" load additional config
+" source additional config
 for s:path in split(glob('~/.config/nvim/include/*.vim'), "\n")
     exe 'source ' . s:path
 endfor

@@ -25,6 +25,20 @@ color=#dadada
 separator=false
 separator_block_width=7
 
+[task ctx]
+TASKRC=~/.config/task/.taskrc
+xivy_prefix=(
+xivy_postfix=)
+command=xivy task-ctx
+interval=10
+
+[task next]
+TASKRC=~/.config/task/.taskrc
+command=xivy task-next
+interval=10
+
+[separator]
+
 [ip]
 xivy_iface=tun0
 xivy_iface_fallback=wlp2s0

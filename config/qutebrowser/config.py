@@ -17,11 +17,12 @@
 # aliases, while the values are the commands they map to.
 # Type: Dict
 c.aliases = {
-    'wq' : 'quit --save',
-    'w'  : 'session-save',
-    'q'  : 'quit',
-    'pe' : 'set content.proxy http://localhost:8080',
-    'pd' : 'set content.proxy system'
+    'wq'  : 'quit --save',
+    'w'   : 'session-save',
+    'q'   : 'quit',
+    'pe'  : 'set content.proxy http://localhost:8080',
+    'pd'  : 'set content.proxy system',
+    'mpv' : 'spawn --userscript mpv'
 }
 
 # Require a confirmation before quitting the application.
@@ -420,14 +421,6 @@ c.content.local_content_can_access_file_urls = True
 # Enable support for HTML 5 local storage and Web SQL.
 # Type: Bool
 c.content.local_storage = True
-
-# Allow websites to record audio/video.
-# Type: BoolAsk
-# Valid values:
-#   - true
-#   - false
-#   - ask
-c.content.media_capture = 'ask'
 
 # Netrc-file for HTTP authentication. If unset, `~/.netrc` is used.
 # Type: File
@@ -837,7 +830,7 @@ c.tabs.favicons.show = 'never'
 #   - startpage: Load the start page.
 #   - default-page: Load the default page.
 #   - close: Close the window.
-c.tabs.last_close = 'ignore'
+c.tabs.last_close = 'startpage'
 
 # Switch between tabs using the mouse wheel.
 # Type: Bool
@@ -947,12 +940,12 @@ c.url.auto_search = 'naive'
 # Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 # for a blank page.
 # Type: FuzzyUrl
-c.url.default_page = 'https://www.google.com/'
+c.url.default_page = 'file:///home/jagreen/src/github.com/ja-green/startpage/startpage.html'
 
 # Open base URL of the searchengine if a searchengine shortcut is
 # invoked without parameters.
 # Type: Bool
-c.url.open_base_url = False
+c.url.open_base_url = True
 
 # Search engines which can be used via the address bar.  Maps a search
 # engine name (such as `DEFAULT`, or `ddg`) to a URL with a `{}`
@@ -976,7 +969,7 @@ c.url.searchengines = {'DEFAULT': 'https://www.google.com/search?q={}', 'google'
 
 # Page(s) to open at the start.
 # Type: List of FuzzyUrl, or FuzzyUrl
-c.url.start_pages = ['https://www.google.com']
+c.url.start_pages = ['file:///home/jagreen/src/github.com/ja-green/startpage/startpage.html']
 
 # URL parameters to strip with `:yank url`.
 # Type: List of String

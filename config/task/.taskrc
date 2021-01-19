@@ -27,7 +27,7 @@
 include /usr/share/taskwarrior/no-color.theme
 
 # runtime
-data.location                    = /home/jgreen/.task
+data.location                    = ${HOME}/.config/task/.task/
 
 editor                           = nvim
 
@@ -79,14 +79,6 @@ color.undo.before                = none
 color.until                      = none
 color.warning                    = yellow
 
-# taskserver
-taskd.certificate                = /home/jgreen/.task/certs/private.certificate.pem
-taskd.key                        = /home/jgreen/.task/certs/private.key.pem
-taskd.ca                         = /home/jgreen/.task/certs/ca.cert.pem
-taskd.server                     = taskwarrior.inthe.am:53589
-taskd.credentials                = inthe_am/greenjagsta/b14e39d5-d9a8-4b10-8daf-1e2e23a3d74b
-taskd.trust                      = ignore hostname
-
 # calendar
 weekstart                        = monday
 
@@ -109,6 +101,7 @@ uda.pts.label                    = points
 uda.pts.values                   = 0.5,1,2,3,5,8,13
 
 # context
+context                          = work
 context.work                     = +@work or +@computer or +@phone or +@online
 context.home                     = +@home or +@phone or +@online not +@work
 
@@ -120,11 +113,10 @@ report.rev.labels                = id,description
 
 report.next.description          = most urgent tasks
 report.next.columns              = id,start.age,entry.age,urgency,depends,priority,project,tags,recur,scheduled.countdown,due.remaining,until.remaining,description,pts
-report.next.filter               = status:pending and +next
+report.next.filter               = status:pending
 report.next.labels               = id,active,age,urgency,deps,priority,project,tag,recur,s,due,until,description,points
 report.next.sort                 = urgency-,pts-,priority-
 
 # alias
 alias.in                         = add +in
 alias.ctx                        = context
-context=work

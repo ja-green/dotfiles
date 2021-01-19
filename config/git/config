@@ -10,6 +10,7 @@
 
 [user]
     name               = ja-green
+    email              = jack@jackgreen.co
 
 ## command
 
@@ -85,10 +86,10 @@
     ll                 = log --pretty = format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
     ls                 = log --pretty = format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
     mg                 = merge
-    mb                 = merge --no-ff --no-commit
+    mb                 = merge --ff-only
     mt                 = mergetool
     rb                 = rebase
-    st                 = status --short
+    st                 = status
     rs                 = reset
     sh                 = stash
     ft                 = fetch

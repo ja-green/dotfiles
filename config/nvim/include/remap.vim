@@ -34,14 +34,20 @@ nnoremap <leader><leader> :noh<CR>:<backspace>
 xnoremap <leader>f <Plug>(coc-format-selected)
 nnoremap <leader>f <Plug>(coc-format-selected)
 
+" coc jump between errors
+nmap <silent> <C-[> <Plug>(coc-diagnostic-prev)
+nmap <silent> <C-]> <Plug>(coc-diagnostic-next)
+
+" coc perform code action
+vmap <silent> <C-A> <Plug>(coc-codeaction-selected)
+nmap <silent> <C-A> <Plug>(coc-codeaction-selected)
+
 " coc - show documentation in preview window
 nnoremap <silent> <C-D> :call <SID>__show_documentation()<CR>
 
-" ctrlp - fast grep
-nnoremap \ :Ag<space>
-
-" ctrlp - open ctrlp window
-nnoremap <leader><space> :Ctrlp<CR>
+" fzf search files / lines
+nnoremap <C-f> :Files<CR>
+nnoremap <C-l> :Lines<CR>
 
 " nerdtree - toggle open
 nnoremap <C-n> :NERDTreeToggle<CR>

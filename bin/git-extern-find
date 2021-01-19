@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 file="$(git ls-files | fzf -0 -1 --ansi -q ${1:-''} --preview='cat {}')"
-[ -z ${file} ] || vi ${file} 2>/dev/null
 
+if test -n "${file}"; then
+    "${EDITOR:-vi}" "${file}" 2>/dev/null
+fi

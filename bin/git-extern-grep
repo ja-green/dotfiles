@@ -6,10 +6,18 @@ shstr=""
 while test $# -gt 0; do
   case "${1}" in
     -*) flags="${flags} ${1}"; shift ;;
-     *) shstr="${shstr} ${1}"; shift ;;
+     *) if test -z "${shstr}"; then
+            shstr="${1}"; shift
+        else
+            shift
+        fi ;;
   esac
 done
 
-file="$(git grep ${flags} ${shstr:-''} | sed 's/:.*//' | sort -u | fzf -0 -1 --preview="[ -z $shstr ] && cat {} || grep -ihn $shstr {}")"
-[ -z ${file} ] || nvim ${file} +/"${shstr}" 2>/dev/null
+echo "%${shstr}%"
 
+file="$(git grep ${flags} ${shstr:-''} | sed 's/:.*//' | sort -u | fzf -0 -1 --preview="[ -z $shstr ] && cat {} || grep -ihn $shstr {}")"
+
+if test -n "${file}"; then
+    "${EDITOR:-vi}" "${file}" "+/${shstr}" 2>/dev/null
+fi

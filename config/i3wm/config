@@ -38,12 +38,12 @@ bindsym $mod+d exec dmenu_run \
     -nf '#dadada' \
     -sb '#8ba870' \
     -sf '#000000' \
-    -fn 'Inconsolata Nerd Font Mono:pixelsize=12' \
+    -fn 'Inconsolata Nerd Font Mono:pixelsize=10' \
     -p  '> ' \
     -b -i
 
 ## specific programs
-bindsym $mod+Return       exec termite
+bindsym $mod+Return       exec termite -e tmux
 bindsym $mod+Shift+Return exec ${BROWSER:-qutebrowser}
 
 ## volume control
@@ -138,6 +138,9 @@ bindsym $mod+f fullscreen toggle
 ## modify window floating toggle
 bindsym $mod+Shift+f floating toggle
 
+## modify window sticky toggle
+bindsym $mod+Shift+s sticky toggle
+
 ## modify window layout mode
 bindsym $mod+t layout toggle tabbed splith splitv
 
@@ -212,7 +215,7 @@ workspace_auto_back_and_forth no
 # modes
 
 ## resize mode
-set $mode_resize resize: arrow, shift + arrow
+set $mode_resize resize: hjkl (fine), S+hjkl (fast)
 
 bindsym $mod+r mode "$mode_resize"
 
@@ -282,6 +285,18 @@ mode "$mode_gaps_outer" {
     bindsym Escape mode "default"
 }
 
+set $mode_mpv mpv: l|r (seek), <spc> (cycle pause), q (quit)
+
+bindsym $mod+m mode "$mode_mpv"
+
+mode "$mode_mpv" {
+    bindsym Left   exec echo seek -10    | socat - /tmp/mpv.sock
+    bindsym Right  exec echo seek +10    | socat - /tmp/mpv.sock
+    bindsym space  exec echo cycle pause | socat - /tmp/mpv.sock
+    bindsym q      exec echo quit        | socat - /tmp/mpv.sock
+    bindsym Escape mode "default"
+}
+
 # appearance and behavior
 
 # disable titlebar
@@ -291,6 +306,9 @@ default_floating_border pixel 0
 ## remove window borders
 for_window [class="^.*"] border pixel 0
 
+# floating mpv player
+for_window [class="mpv"] floating enable, sticky enable, resize set 640 480, move position center
+
 # specify the distance between windows in pixels
 gaps inner 15
 gaps outer 0
@@ -299,7 +317,7 @@ gaps outer 0
 popup_during_fullscreen smart
 
 # window focus follows your mouse movements as the mouse crosses window borders
-focus_follows_mouse no
+focus_follows_mouse yes
 
 # colors and fonts
 
@@ -339,19 +357,18 @@ client.urgent           $color_bg $color_bg $color_bg $color_bg $color_bg
 client.background       $color_bg
 
 # sets i3 font for dialogs
-set $font xft:Inconsolata Nerd Font Mono Medium 9
+set $font xft:Inconsolata Nerd Font Mono Medium 8
 font $font
 
 # i3 bar
-
 bar {
-  position bottom
-  font $font
-  separator_symbol |
-  status_command i3blocks
-  tray_output none
+  position                bottom
+  font                    $font
+  separator_symbol        |
+  status_command          i3blocks
+  tray_output             none
   strip_workspace_numbers no
-  height 14
+  height                  14
 
   colors {
       background $color_bg
@@ -367,5 +384,4 @@ bar {
 }
 
 # external programs launched with i3
-
-exec --no-startup-id chbg 3a3f4d
+exec --no-startup-id chbg 3a3c4a

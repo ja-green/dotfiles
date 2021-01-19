@@ -82,6 +82,13 @@ let g:tagbar_show_linenumbers = 1
 let g:tagbar_autoshowtag      = 1
 let g:tagbar_sort             = 0
 let g:tagbar_compact          = 1
+
+" nerdtree
+let NERDTreeAutoDeleteBuffer  = 1
+let NERDTreeDirArrows         = 1
+let NERDTreeMinimalUI         = 1
+let NERDTreeQuitOnOpen        = 1
+let NERDTreeShowHidden        = 1
 " }}
 
 " vim: set sw=2 ts=2 sts=2 et tw=78 fmr={{,}} fdm=marker fdl=0:

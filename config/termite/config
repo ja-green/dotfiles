@@ -19,9 +19,6 @@ search_wrap           = true
 urgent_on_bell        = true
 hyperlinks            = true
 
-# $BROWSER is used by default if set, with xdg-open as a fallback
-#browser              = xdg-open
-
 # "system", "on" or "off"
 cursor_blink          = system
 
@@ -46,7 +43,7 @@ scrollbar             = off
 cursor                = #dadada
 cursor_foreground     = #dadada
 
-foreground            = #dadaad
+foreground            = #dadada
 foreground_bold       = #dadada
 background            = #404552
 

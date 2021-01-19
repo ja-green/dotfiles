@@ -1,0 +1,10 @@
+# tmux configuration file
+
+bind-key r source-file ${HOME}/.config/tmux/config\; \
+    display-message "config sourced"
+
+# source additional config
+run-shell "for f in \${HOME}/.config/tmux/include/*.tmux; \
+    do tmux source-file \"\${f}\"; done"
+
+# vim: set ft=tmux:
