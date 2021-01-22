@@ -17,8 +17,8 @@ bind-key -n M-j     select-pane -R
 bind-key -n M-k     select-pane -U
 bind-key -n M-l     select-pane -D
 
-bind-key -n M-h     split-window -h
-bind-key -n M-v     split-window -v
+bind-key -n M-,     split-window -h
+bind-key -n M-.     split-window -v
 bind-key -n M-Enter new-window
 
 bind-key -n M-1     select-window -t 1
@@ -31,6 +31,8 @@ bind-key -n M-7     select-window -t 7
 bind-key -n M-8     select-window -t 8
 bind-key -n M-9     select-window -t 9
 bind-key -n M-0     select-window -t :10
+
+bind-key -n M-v     copy-mode
 
 # copy mode
 bind-key -T copy-mode-vi v send-keys -X begin-selection

@@ -126,11 +126,11 @@ bindsym $mod+Ctrl+Shift+j     move workspace to output down
 bindsym $mod+Ctrl+Shift+k     move workspace to output up
 bindsym $mod+Ctrl+Shift+l     move workspace to output right
 
-## modify vertical window orientation
-bindsym $mod+v split vertical
-
-## modify horizontal window orientation
-bindsym $mod+z split horizontal
+## modify window orientation
+bindsym $mod+comma        split horizontal; exec termite -e tmux
+bindsym $mod+period       split vertical;   exec termite -e tmux
+bindsym $mod+Shift+comma  split horizontal
+bindsym $mod+Shift+period split vertical
 
 ## modify window fullscreen toggle
 bindsym $mod+f fullscreen toggle
