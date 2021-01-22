@@ -1,0 +1,5 @@
+# zsh config
+
+for f in "${ZDOTDIR:-$HOME/.config/zsh/}/include/"*.zsh; do
+    source "${f}"
+done

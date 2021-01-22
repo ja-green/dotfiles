@@ -16,21 +16,21 @@
         recursive: true
 
 - link:
-    ~/.Xresources:                     config/x/.Xresources
-    ~/.xinitrc:                        config/x/.xinitrc
-    ~/.zshrc:                          config/zsh/.zshrc
-    ~/.bashrc:                         config/bash/.bashrc
-    ~/.config/:                        config/xdg/*
-    ~/.config/shell/.bashrc:           config/bash/.bashrc
-    ~/.config/shell/.zshrc:            config/zsh/.zshrc
-    ~/.config/dircolors/config:        config/dircolors/config
-    ~/.config/git/config:              config/git/config
-    ~/.config/i3/config:               config/i3wm/config
-    ~/.config/i3blocks/config:         config/i3blocks/config
-    ~/.config/nvim/:                   config/nvim/*
-    ~/.config/qutebrowser/config.py:   config/qutebrowser/config.py
-    ~/.config/termite/config:          config/termite/config
-    ~/.config/radare2/radare2rc:       config/radare2/radare2rc
-    ~/.mitmproxy/config.yaml:          config/mitmproxy/config.yaml
-
+    ~/.Xresources:                         config/x/.Xresources
+    ~/.xinitrc:                            config/x/.xinitrc
+    ~/.config/:                            config/xdg/*
+    ~/.config/bash/.bashrc:                config/bash/.bashrc
+    ~/.config/zsh/.zshrc:                  config/zsh/zshrc
+    ~/.config/gdb/gdbinit:                 config/gdb/gdbinit
+    ~/.config/dircolors/config:            config/dircolors/config
+    ~/.config/git/config:                  config/git/config
+    ~/.config/i3/config:                   config/i3wm/config
+    ~/.config/i3blocks/config:             config/i3blocks/config
+    ~/.config/nvim/:                       config/nvim/*
+    ~/.config/tmux/:                       config/tmux/*
+    ~/.config/qutebrowser/config.py:       config/qutebrowser/config.py
+    ~/.config/ncpamixer/config:            config/ncpamixer/config
+    ~/.config/termite/config:              config/termite/config
+    ~/.config/radare2/radare2rc:           config/radare2/radare2rc
+    ~/.mitmproxy/config.yaml:              config/mitmproxy/config.yaml
     ~/.local/share/qutebrowser/userscripts config/qutebrowser/userscripts

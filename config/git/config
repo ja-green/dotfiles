@@ -104,7 +104,10 @@
     co                 = extern-checkout
     fd                 = extern-find
 
+## custom
+    tp                 = template
+
 ## shell
     al                 = !sh -c \"git config -l | grep alias | cut -c 7-\"
-    hm                 = !sh -c \"git rev-parse --show-toplevel\"
+    tl                 = !sh -c \"git rev-parse --show-toplevel\"
     un                 = !sh -c \"git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}\"
